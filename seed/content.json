@@ -1,0 +1,194 @@
+{
+  "services": [
+    {
+      "id": "drivers-partners",
+      "slug": "drivers-partners",
+      "title": {
+        "pl": "Kierowcy i partnerzy",
+        "en": "Drivers & Partners"
+      },
+      "summary": {
+        "pl": "Wynajem aut, kierowcy taxi i start na Uber, Bolt i FreeNow – od dnia do długiego terminu.",
+        "en": "Car rental, taxi drivers and getting started on Uber, Bolt and FreeNow – from daily to long-term."
+      },
+      "content": {
+        "pl": "<p>Oferujemy niezawodne rozwiązania transportowe w całej Polsce – dla osób prywatnych, firm i dostawców. Niezależnie od tego, czy potrzebujesz wynajmu auta, kierowcy taxi, czy chcesz zacząć jeździć w aplikacjach takich jak Uber, Bolt lub FreeNow, zapewniamy sprawną i bezproblemową obsługę za każdym razem.</p><p>Nasze zadbane pojazdy odpowiadają na każdą potrzebę i budżet, z elastycznym wynajmem od jednego dnia po długi termin. Z FleetFlow masz gwarancję profesjonalnego i wygodnego rozwiązania, dopasowanego do Twojego grafiku.</p>",
+        "en": "<p>We offer reliable transportation solutions across Poland, catering to individuals, businesses and delivery providers. Whether you need a car rental, a taxi driver, or want to drive with a ride-hailing service like Uber, Bolt or FreeNow, we ensure a smooth, hassle-free experience every time.</p><p>Our well-maintained vehicles meet every need and budget, offering flexible rental options from daily to long-term. With FleetFlow, you're guaranteed a professional and convenient travel solution, tailored to fit your schedule.</p>"
+      },
+      "image": "/images/fleetflow-taxi.webp",
+      "published": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "fleet-management",
+      "slug": "fleet-management",
+      "title": {
+        "pl": "Zarządzanie flotą",
+        "en": "Fleet Management Service"
+      },
+      "summary": {
+        "pl": "Optymalizacja tras z AI – szybciej, taniej i z mniejszym zużyciem paliwa.",
+        "en": "AI route optimisation – faster, cheaper trips with lower fuel costs."
+      },
+      "content": {
+        "pl": "<p>FleetFlow Service wykorzystuje nowoczesną technologię AI do optymalizacji tras, zapewniając najszybsze i najbardziej opłacalne przejazdy w całej Polsce. Nasz system AI analizuje ruch w czasie rzeczywistym, pogodę i inne czynniki, aby wyznaczać najskuteczniejsze trasy dostaw i przejazdów, ograniczając opóźnienia i koszty paliwa.</p><p>Niezależnie od tego, czy zarządzasz flotą, czy potrzebujesz pojedynczego przejazdu, nasze rozwiązanie pomaga zwiększyć efektywność, obniżyć koszty operacyjne i przyspieszyć dostawy. Usprawnij logistykę dzięki naszej inteligentnej optymalizacji tras opartej na danych.</p>",
+        "en": "<p>FleetFlow Service leverages cutting-edge AI technology to optimise routes, ensuring the fastest, most cost-efficient travel across Poland. Our AI system analyses real-time traffic, weather and other variables to create the most effective delivery or transport routes, minimising delays and fuel costs.</p><p>Whether you're managing a fleet or need individual travel, our solution helps improve efficiency, reduce operational costs and enhance delivery speed. Streamline your logistics with our smart, data-driven route optimisation service.</p>"
+      },
+      "image": "/images/hero-car.webp",
+      "published": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "van-cargo",
+      "slug": "van-cargo",
+      "title": {
+        "pl": "Przewóz busem (cargo)",
+        "en": "Van Cargo Service"
+      },
+      "summary": {
+        "pl": "Szybki, bezpieczny i opłacalny przewóz paczek, mebli i sprzętu busem – od drzwi do drzwi.",
+        "en": "Fast, secure and cost-effective van transport for packages, furniture and equipment – door to door."
+      },
+      "content": {
+        "pl": "<p>Oferujemy <strong>szybki, bezpieczny i opłacalny przewóz towarów busem</strong> dla firm i osób prywatnych w całej Polsce. Niezależnie od tego, czy chcesz przewieźć paczki, meble, sprzęt czy towary hurtowe, nasza flota zadbanych busów zapewnia <strong>terminową i bezpieczną dostawę</strong>.</p><h3>Dlaczego warto wybrać nasz przewóz busem?</h3><ul><li><strong>Elastyczne rozwiązania:</strong> idealne dla małych i średnich ładunków</li><li><strong>Dostawa od drzwi do drzwi:</strong> bezproblemowy odbiór i dostarczenie</li><li><strong>Optymalizacja tras z AI:</strong> szybsze i wydajniejsze dostawy</li><li><strong>Profesjonalni kierowcy:</strong> przeszkoleni i doświadczeni w bezpiecznym przewozie</li><li><strong>Przystępne ceny:</strong> konkurencyjne stawki bez ukrytych opłat</li></ul><p><strong>Chcesz z nami współpracować? Poproś o bezpłatną wycenę już dziś!</strong></p>",
+        "en": "<p>We offer <strong>fast, secure and cost-effective van cargo transportation</strong> for businesses and individuals across Poland. Whether you need to transport packages, furniture, equipment or bulk goods, our fleet of well-maintained vans ensures <strong>timely and safe delivery</strong>.</p><h3>Why choose our van cargo service?</h3><ul><li><strong>Flexible solutions:</strong> ideal for small to medium-sized cargo</li><li><strong>Door-to-door delivery:</strong> hassle-free pickup and drop-off</li><li><strong>AI-based route optimisation:</strong> faster and more efficient deliveries</li><li><strong>Professional drivers:</strong> trained and experienced for safe handling</li><li><strong>Affordable pricing:</strong> competitive rates with no hidden fees</li></ul><p><strong>Want to partner with us? Get a free quote today!</strong></p>"
+      },
+      "image": "/images/fleetflow-van.webp",
+      "published": true,
+      "sortOrder": 3
+    }
+  ],
+  "fleet": [
+    {
+      "id": "prius-2011",
+      "name": "Toyota Prius III",
+      "year": 2011,
+      "pricePerWeek": 600,
+      "image": "",
+      "color": "#c8102e",
+      "fuel": {
+        "pl": "Hybryda + LPG",
+        "en": "Hybrid + LPG"
+      },
+      "summary": {
+        "pl": "Idealne rozwiązanie do pracy w taxi – niskie spalanie i bogate wyposażenie.",
+        "en": "An ideal solution for taxi services, with low fuel consumption and rich features."
+      },
+      "features": {
+        "pl": [
+          "Hybryda + LPG – niskie koszty paliwa",
+          "Automatyczna skrzynia biegów",
+          "Klimatyzacja automatyczna dla komfortu pasażerów",
+          "CarPlay i kamera cofania",
+          "W pełni wyposażony, z pieczątką taxi",
+          "Ubezpieczenie OC w cenie"
+        ],
+        "en": [
+          "Hybrid + LPG for fuel efficiency",
+          "Automatic transmission for smooth driving",
+          "Climate control for passenger comfort",
+          "CarPlay and rear camera",
+          "Fully equipped with a taxi stamp",
+          "OC insurance included"
+        ]
+      },
+      "published": true,
+      "sortOrder": 1
+    },
+    {
+      "id": "corolla-2007",
+      "name": "Toyota Corolla",
+      "year": 2007,
+      "pricePerWeek": 500,
+      "image": "",
+      "color": "#a7adb4",
+      "fuel": {
+        "pl": "Benzyna + LPG",
+        "en": "Petrol + LPG"
+      },
+      "summary": {
+        "pl": "Oszczędne, dobrze wyposażone auto, od razu gotowe do pracy w taxi.",
+        "en": "A fuel-efficient, well-equipped car, ready for taxi service immediately."
+      },
+      "features": {
+        "pl": [
+          "Benzyna + LPG – ekonomiczna jazda",
+          "Automatyczna skrzynia biegów",
+          "Klimatyzacja automatyczna dla komfortu pasażerów",
+          "CarPlay, kamera cofania i wideorejestrator",
+          "W pełni wyposażony i gotowy do pracy w taxi",
+          "Ubezpieczenie OC w cenie"
+        ],
+        "en": [
+          "Petrol + LPG for cost-effective fuel consumption",
+          "Automatic transmission for smooth driving",
+          "Climate control for passenger comfort",
+          "CarPlay, rear and dashboard camera",
+          "Fully equipped and ready for taxi operations",
+          "OC insurance included"
+        ]
+      },
+      "published": true,
+      "sortOrder": 2
+    },
+    {
+      "id": "corolla-2021-comfort",
+      "name": "Toyota Corolla Comfort",
+      "year": 2021,
+      "pricePerWeek": 900,
+      "image": "",
+      "color": "#b3121f",
+      "fuel": {
+        "pl": "Hybryda + LPG",
+        "en": "Hybrid + LPG"
+      },
+      "summary": {
+        "pl": "Oszczędna, w pełni wyposażona taksówka, gotowa do natychmiastowej pracy.",
+        "en": "A fuel-efficient, fully equipped taxi, ready for immediate use."
+      },
+      "features": {
+        "pl": [
+          "Hybryda + LPG – bardzo niskie spalanie",
+          "Automatyczna skrzynia biegów",
+          "Klimatyzacja automatyczna dla komfortu pasażerów",
+          "Bogate wyposażenie klasy premium",
+          "CarPlay i kamera cofania",
+          "Pieczątka taxi – gotowy do pracy",
+          "Ubezpieczenie OC i AC w cenie"
+        ],
+        "en": [
+          "Hybrid + LPG for low fuel consumption",
+          "Automatic gearbox for smooth driving",
+          "Climate control for passenger comfort",
+          "Rich equipment for a premium experience",
+          "CarPlay and rear camera",
+          "Taxi stamp – ready for taxi operations",
+          "OC and AC insurance included"
+        ]
+      },
+      "published": true,
+      "sortOrder": 3
+    }
+  ],
+  "articles": [
+    {
+      "id": "psychotechnical-tests",
+      "slug": "psychotechnical-tests",
+      "title": {
+        "pl": "Badania psychotechniczne – czym są i na czym polegają?",
+        "en": "Psychotechnical tests – what are they and what do they involve?"
+      },
+      "summary": {
+        "pl": "Każdy zawodowy kierowca w Polsce musi przejść badania psychotechniczne. Wyjaśniamy, co sprawdzają, jak wyglądają i kiedy trzeba je wykonać.",
+        "en": "Every professional driver in Poland has to pass psychotechnical tests. Here is what they check, how they work and when you need to take them."
+      },
+      "body": {
+        "pl": "<h2>Czym są badania psychotechniczne?</h2><p>Badania psychotechniczne (psychotesty) to kluczowy element oceny predyspozycji przyszłych kierowców taxi. Sprawdzają nie tylko zdolności poznawcze i psychomotoryczne, ale też umiejętność radzenia sobie w sytuacjach zawodowych, takich jak wielogodzinna jazda w korkach czy kontakt z pasażerami. Odpowiednie przygotowanie i regularne badania są niezbędne dla bezpieczeństwa kierowcy i pasażerów.</p><h2>Na czym polegają badania psychotechniczne?</h2><p>W badaniach psychotechnicznych stosuje się różne metody, m.in.:</p><ul><li><strong>Wywiad psychologiczny</strong> – pozwala poznać historię emocjonalną i psychologiczną kandydata.</li><li><strong>Testy pisemne</strong> – oceniają zdolności poznawcze i procesy intelektualne.</li><li><strong>Testy aparaturowe</strong> – sprawdzają sprawność psychomotoryczną, np. koordynację wzrokowo-ruchową i czas reakcji.</li></ul><p>Łącznie dają one pełny obraz profilu psychologicznego i emocjonalnego badanej osoby. Badania oceniają nie tylko, jak ktoś radzi sobie w trudnych warunkach pracy, ale też jego dojrzałość społeczną i emocjonalną – co jest szczególnie ważne w zawodach wymagających dużej sprawności psychomotorycznej.</p><h2>Kto i kiedy powinien wykonać psychotesty?</h2><p>Psychotesty musi przejść każdy, kto chce zawodowo prowadzić pojazdy. Badania wykonuje się w ośrodku medycznym z odpowiednim wyposażeniem. Pierwsze badanie trzeba przejść przed uzyskaniem kwalifikacji zawodowych, a kolejne – w ramach szkoleń okresowych. Zawodowi kierowcy powtarzają badania psychotechniczne co 5 lat do ukończenia 60. roku życia, a później co 30 miesięcy.</p><h2>Badania psychotechniczne a psychologiczne</h2><p>Badania psychotechniczne i psychologiczne bywają mylone, ale służą innym celom:</p><ul><li><strong>Badania psychologiczne</strong> – dotyczą ogólnego stanu psychicznego i samopoczucia.</li><li><strong>Badania psychotechniczne</strong> – oceniają zdolność do wykonywania konkretnych zadań zawodowych.</li></ul><p>Krótko mówiąc, badania psychotechniczne mają charakter praktyczny – sprawdzają, czy ktoś ma umiejętności potrzebne w zawodach wymagających precyzji psychomotorycznej i bezpieczeństwa. Badania psychologiczne są szersze i obejmują wiele aspektów zdrowia psychicznego i stanu emocjonalnego.</p>",
+        "en": "<h2>What are psychotechnical tests?</h2><p>Psychotechnical tests (or psychotests) are an essential part of evaluating the suitability of future taxi drivers. They assess not only cognitive and psychomotor skills but also the ability to handle professional situations, such as long hours of driving in traffic or interacting with passengers. Proper preparation and regular testing are crucial for the safety of both the driver and passengers.</p><h2>What do psychotechnical tests involve?</h2><p>Psychotechnical tests use a variety of methods, including:</p><ul><li><strong>Psychological interview</strong> – provides insight into the candidate's emotional and psychological history.</li><li><strong>Written tests</strong> – assess cognitive abilities and intellectual processes.</li><li><strong>Apparatus tests</strong> – focus on psychomotor skills, such as visual-motor coordination and reaction time.</li></ul><p>Together, these techniques give a comprehensive picture of a person's psychological and emotional profile. The tests evaluate not only how well someone can work in challenging conditions, but also their social and emotional maturity – which is particularly important in professions where psychomotor efficiency is essential.</p><h2>Who should take psychotests, and when?</h2><p>Anyone intending to drive professionally must undergo psychotests. The tests are conducted at a medical centre with the necessary equipment. The first test must be completed before obtaining professional qualifications, with further tests during periodic training. Professional drivers must repeat the psychotechnical tests every 5 years until they turn 60, and every 30 months after that.</p><h2>Psychotechnical vs psychological tests</h2><p>Psychotechnical and psychological tests are often confused, but they serve different purposes:</p><ul><li><strong>Psychological tests</strong> – focus on a person's overall mental state and well-being.</li><li><strong>Psychotechnical tests</strong> – assess the ability to perform specific professional tasks.</li></ul><p>In short, psychotechnical tests are practical: they check whether someone has the skills needed for professions that demand psychomotor precision and safety. Psychological tests are broader and cover many aspects of mental health and emotional state.</p>"
+      },
+      "coverImage": "",
+      "published": true,
+      "publishedAt": "2025-02-18"
+    }
+  ]
+}
