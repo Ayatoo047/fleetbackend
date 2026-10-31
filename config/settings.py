@@ -159,6 +159,7 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_RATES": {
         "bookings": env("THROTTLE_BOOKINGS", "10/hour"),
         "contact": env("THROTTLE_CONTACT", "10/hour"),
+        "enquiries": env("THROTTLE_ENQUIRIES", "10/hour"),
         "login": env("THROTTLE_LOGIN", "20/hour"),
     },
     # Number of reverse proxies in front of the API (used to read the client IP from X-Forwarded-For).

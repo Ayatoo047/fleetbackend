@@ -37,3 +37,9 @@ class ContactThrottle(VisitorRateThrottle):
 
 class LoginThrottle(VisitorRateThrottle):
     scope = "login"
+
+
+class EnquiryThrottle(VisitorRateThrottle):
+    """Cargo quote requests and job applications."""
+
+    scope = "enquiries"

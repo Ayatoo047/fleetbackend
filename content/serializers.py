@@ -1,9 +1,9 @@
-"""JSON shapes and validation for services, rental cars and articles. Mirrors the admin forms' rules."""
+"""JSON shapes and validation for services, rental cars, FAQ entries and site settings. Mirrors the admin forms' rules."""
 
 from core import validation as v
 from core.utils import iso
 
-from .models import Article, FleetCar, Service
+from .models import BRANDS, FAQ_CATEGORIES, Faq, FleetCar, Service, SiteSettings
 
 
 def _timestamps(obj):
@@ -13,12 +13,14 @@ def _timestamps(obj):
 def service_to_json(s):
     return {
         "id": str(s.id),
+        "brand": s.brand,
         "slug": s.slug,
         "title": s.title,
         "summary": s.summary,
         "content": s.content,
         "image": s.image,
         "published": s.published,
+        "comingSoon": s.coming_soon,
         "sortOrder": s.sort_order,
         **_timestamps(s),
     }
@@ -41,17 +43,23 @@ def car_to_json(c):
     }
 
 
-def article_to_json(a):
+def faq_to_json(f):
     return {
-        "id": str(a.id),
-        "slug": a.slug,
-        "title": a.title,
-        "summary": a.summary,
-        "body": a.body,
-        "coverImage": a.cover_image,
-        "published": a.published,
-        "publishedAt": a.published_at.isoformat(),
-        **_timestamps(a),
+        "id": str(f.id),
+        "category": f.category,
+        "question": f.question,
+        "answer": f.answer,
+        "published": f.published,
+        "sortOrder": f.sort_order,
+        **_timestamps(f),
+    }
+
+
+def settings_to_json(st):
+    return {
+        "cargoRatePerKg": float(st.cargo_rate_per_kg),
+        "cargoMinWeightKg": float(st.cargo_min_weight_kg),
+        "cargoEstimatorEnabled": st.cargo_estimator_enabled,
     }
 
 
@@ -74,11 +82,13 @@ def _common(check):
 def validate_service(data, instance=None):
     check = v.Checker(data)
     cleaned = {
+        "brand": check.run("brand", v.choice, check.get("brand"), BRANDS),
         "slug": check.run("slug", v.slug, check.get("slug")),
         "title": v.localized(check, "title", 120),
         "summary": v.localized(check, "summary", 300),
         "content": v.rich_text(check, "content"),
         "image": check.run("image", v.image_url, check.get("image")),
+        "coming_soon": check.run("comingSoon", v.boolean, check.get("comingSoon"), False),
         **_common(check),
     }
     _unique_slug(check, cleaned, Service, instance)
@@ -122,17 +132,32 @@ def validate_car(data, instance=None):
     return cleaned
 
 
-def validate_article(data, instance=None):
+def validate_faq(data, instance=None):
     check = v.Checker(data)
     cleaned = {
-        "slug": check.run("slug", v.slug, check.get("slug")),
-        "title": v.localized(check, "title", 160),
-        "summary": v.localized(check, "summary", 300),
-        "body": v.rich_text(check, "body"),
-        "cover_image": check.run("coverImage", v.image_url, check.get("coverImage")),
-        "published": check.run("published", v.boolean, check.get("published"), False),
-        "published_at": check.run("publishedAt", v.iso_date, check.get("publishedAt")),
+        "category": check.run("category", v.choice, check.get("category"), FAQ_CATEGORIES),
+        "question": v.localized(check, "question", 200),
+        "answer": v.rich_text(check, "answer"),
+        **_common(check),
     }
-    _unique_slug(check, cleaned, Article, instance)
     check.raise_if_invalid()
     return cleaned
+
+
+def validate_settings(data):
+    check = v.Checker(data)
+    cleaned = {
+        "cargo_rate_per_kg": check.run("cargoRatePerKg", v.number, check.get("cargoRatePerKg"), 0, 10_000),
+        "cargo_min_weight_kg": check.run("cargoMinWeightKg", v.number, check.get("cargoMinWeightKg"), 0, 1000),
+        "cargo_estimator_enabled": check.run("cargoEstimatorEnabled", v.boolean, check.get("cargoEstimatorEnabled")),
+    }
+    check.raise_if_invalid()
+    return cleaned
+
+
+def save_settings(cleaned):
+    settings = SiteSettings.load()
+    for field, value in cleaned.items():
+        setattr(settings, field, value)
+    settings.save()
+    return settings

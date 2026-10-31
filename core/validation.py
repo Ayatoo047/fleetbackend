@@ -5,6 +5,7 @@ Small validation helpers that report errors as the short codes the frontend unde
 
 import datetime as dt
 import re
+from decimal import Decimal, InvalidOperation
 
 import nh3
 from django.core.exceptions import ValidationError
@@ -101,6 +102,21 @@ def integer(value, minimum, maximum, code="invalid", default=MISSING):
     if not number.is_integer() or not minimum <= number <= maximum:
         raise FieldError(code)
     return int(number)
+
+
+def number(value, minimum, maximum, code="invalid", default=MISSING):
+    """A number in range (decimals allowed), as a Decimal rounded to 2 places."""
+    if (value is MISSING or value is None or value == "") and default is not MISSING:
+        return default
+    if isinstance(value, bool) or not isinstance(value, (int, float, str)):
+        raise FieldError(code)
+    try:
+        result = Decimal(str(value).strip())
+    except InvalidOperation as error:
+        raise FieldError(code) from error
+    if not result.is_finite() or not minimum <= result <= maximum:
+        raise FieldError(code)
+    return result.quantize(Decimal("0.01"))
 
 
 def boolean(value, default=MISSING):

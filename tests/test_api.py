@@ -11,8 +11,8 @@ from django.test import TestCase, override_settings
 from rest_framework.test import APIClient
 
 from accounts.models import AuthToken, User
-from bookings.models import Booking, ContactMessage
-from content.models import Article, FleetCar, Service
+from bookings.models import Booking, CargoQuote, ContactMessage, JobApplication
+from content.models import Faq, FleetCar, Service, SiteSettings
 from core.utils import now_in_poland
 
 TEMP_MEDIA = tempfile.mkdtemp()
@@ -46,12 +46,14 @@ def booking_payload(**overrides):
 
 def service_payload(**overrides):
     payload = {
+        "brand": "cargo",
         "slug": "van-cargo",
         "title": {"pl": "Bus", "en": "Van"},
         "summary": {"pl": "Przewóz", "en": "Cargo"},
         "content": {"pl": "<p>Treść</p>", "en": "<p>Body <script>alert(1)</script></p>"},
         "image": "",
         "published": True,
+        "comingSoon": False,
         "sortOrder": 1,
     }
     payload.update(overrides)
@@ -277,7 +279,7 @@ class BookingTests(ApiTestCase):
 
 class ContactMessageTests(ApiTestCase):
     def test_send_and_manage(self):
-        payload = {"name": "", "email": "jan@example.com", "phone": "", "topic": "rental", "message": "Hello", "locale": "en"}
+        payload = {"name": "", "email": "jan@example.com", "phone": "", "topic": "cargo", "message": "Hello", "locale": "en"}
         with self.captureOnCommitCallbacks(execute=True):
             response = self.client.post("/v1/contact-messages", payload, format="json")
         self.assertEqual(response.status_code, 201)
@@ -300,6 +302,68 @@ class ContactMessageTests(ApiTestCase):
         self.assertFalse(ContactMessage.objects.exists())
 
 
+class LeadTests(ApiTestCase):
+    cargo = {
+        "name": "Ade Bello", "whatsapp": "+234 803 123 4567", "email": "ade@example.com", "direction": "pl_ng",
+        "goodsType": "food", "description": "Spices", "weightKg": 12.5, "destinationCity": "Kraków", "notes": "", "locale": "en",
+    }
+    application = {
+        "role": "courier", "name": "Jan", "email": "jan@example.com", "phone": "+48 600 100 200", "city": "Łódź",
+        "hasLicence": True, "workStatus": "student", "availability": "weekends", "message": "", "locale": "pl",
+    }
+
+    def test_cargo_quotes(self):
+        response = self.client.post("/v1/cargo-quotes", self.cargo, format="json")
+        self.assertEqual(response.status_code, 201, response.content)
+        self.assertRegex(response.json()["reference"], r"^FC-[2-9A-HJ-NP-Z]{6}$")
+        self.assertEqual(CargoQuote.objects.get().destination_city, "", "only shipments to Poland keep a city")
+        self.assertEqual(len(mail.outbox), 0, "the website emails the team itself")
+
+        bad = {**self.cargo, "whatsapp": "call me", "direction": "", "goodsType": "cars", "weightKg": "heavy", "description": "x" * 1001}
+        self.assertEqual(
+            self.client.post("/v1/cargo-quotes", bad, format="json").json(),
+            {"errors": {"whatsapp": "phone", "direction": "required", "goodsType": "required", "description": "tooLong", "weightKg": "number"}},
+        )
+
+        client = self.as_user("staff@example.com", "staff-password")
+        listing = client.get("/v1/cargo-quotes").json()
+        self.assertEqual((listing["total"], listing["items"][0]["weightKg"], listing["items"][0]["status"]), (1, 12.5, "new"))
+        quote_id = listing["items"][0]["id"]
+        self.assertEqual(client.patch(f"/v1/cargo-quotes/{quote_id}", {"status": "in_progress"}, format="json").status_code, 200)
+        self.assertEqual(client.get("/v1/cargo-quotes", {"status": "in_progress"}).json()["total"], 1)
+        self.assertEqual(client.patch(f"/v1/cargo-quotes/{quote_id}", {"status": "handled"}, format="json").status_code, 422)
+        self.assertEqual(client.delete(f"/v1/cargo-quotes/{quote_id}").status_code, 204)
+        self.assertEqual(self.client.get("/v1/cargo-quotes").status_code, 401)
+
+    def test_job_applications(self):
+        response = self.client.post("/v1/job-applications", self.application, format="json")
+        self.assertEqual(response.status_code, 201, response.content)
+        self.assertEqual(set(response.json()), {"id"})
+
+        bad = {**self.application, "role": "pilot", "hasLicence": "yes", "city": "", "workStatus": None}
+        self.assertEqual(
+            self.client.post("/v1/job-applications", bad, format="json").json(),
+            {"errors": {"role": "required", "city": "required", "hasLicence": "required", "workStatus": "required"}},
+        )
+
+        client = self.as_user("staff@example.com", "staff-password")
+        item = client.get("/v1/job-applications").json()["items"][0]
+        self.assertEqual((item["hasLicence"], item["workStatus"], item["city"]), (True, "student", "Łódź"))
+        self.assertEqual(client.patch(f"/v1/job-applications/{item['id']}", {"status": "closed"}, format="json").json()["status"], "closed")
+        self.assertEqual(client.delete(f"/v1/job-applications/{item['id']}").status_code, 204)
+        self.assertFalse(JobApplication.objects.exists())
+
+    def test_rate_limited_per_visitor(self):
+        from rest_framework.throttling import SimpleRateThrottle
+
+        with mock.patch.object(SimpleRateThrottle, "THROTTLE_RATES", {"enquiries": "1/hour"}):
+            codes = [
+                self.client.post("/v1/cargo-quotes", self.cargo, format="json", HTTP_X_API_KEY="secret", HTTP_X_VISITOR_IP=ip).status_code
+                for ip in ("1.1.1.1", "1.1.1.1", "2.2.2.2")
+            ]
+        self.assertEqual(codes, [201, 429, 201])
+
+
 class ContentTests(ApiTestCase):
     def test_services_crud_and_visibility(self):
         client = self.as_user("staff@example.com", "staff-password")
@@ -307,6 +371,7 @@ class ContentTests(ApiTestCase):
         self.assertEqual(response.status_code, 201, response.content)
         service = response.json()
         self.assertEqual(service["content"]["en"], "<p>Body </p>", "rich text is sanitised")
+        self.assertEqual((service["brand"], service["comingSoon"]), ("cargo", False))
 
         self.assertEqual(client.post("/v1/services", service_payload(), format="json").json(), {"errors": {"slug": "taken"}})
 
@@ -320,8 +385,8 @@ class ContentTests(ApiTestCase):
         self.assertEqual(response.json()["title"], {"pl": "A", "en": "B"})
         self.assertEqual(client.put(f"/v1/services/{hidden['id']}", service_payload(), format="json").json(), {"errors": {"slug": "taken"}})
 
-        errors = client.post("/v1/services", service_payload(slug="Bad Slug", title={"pl": ""}, content={"pl": "<p></p>", "en": "x"}, image="ftp://x"), format="json").json()["errors"]
-        self.assertEqual(errors, {"slug": "invalid", "title.pl": "required", "title.en": "required", "content.pl": "required", "image": "invalid"})
+        errors = client.post("/v1/services", service_payload(slug="Bad Slug", title={"pl": ""}, content={"pl": "<p></p>", "en": "x"}, image="ftp://x", brand="taxi"), format="json").json()["errors"]
+        self.assertEqual(errors, {"brand": "invalid", "slug": "invalid", "title.pl": "required", "title.en": "required", "content.pl": "required", "image": "invalid"})
 
         self.assertEqual(client.delete(f"/v1/services/{hidden['id']}").status_code, 204)
         self.assertEqual(Service.objects.count(), 1)
@@ -341,19 +406,40 @@ class ContentTests(ApiTestCase):
         self.assertEqual(errors, {"year": "invalid", "color": "invalid", "features.pl": "tooLong", "features.en": "invalid"})
         self.assertEqual(FleetCar.objects.count(), 1)
 
-    def test_articles(self):
-        client = self.as_user()
-        article = {
-            "slug": "first", "title": {"pl": "T", "en": "T"}, "summary": {"pl": "S", "en": "S"},
-            "body": {"pl": "<p>B</p>", "en": "<p>B</p>"}, "coverImage": "", "published": True, "publishedAt": "2025-01-01",
+    def test_faqs(self):
+        client = self.as_user("staff@example.com", "staff-password")
+        faq = {
+            "category": "cargo", "question": {"pl": "Pytanie?", "en": "Question?"},
+            "answer": {"pl": "<p>Tak</p>", "en": "<p>Yes</p>"}, "published": True, "sortOrder": 2,
         }
-        self.assertEqual(client.post("/v1/articles", article, format="json").status_code, 201)
-        self.assertEqual(client.post("/v1/articles", {**article, "slug": "newer", "publishedAt": "2025-06-01"}, format="json").status_code, 201)
-        self.assertEqual(client.post("/v1/articles", {**article, "slug": "draft", "published": False}, format="json").status_code, 201)
-        self.assertEqual([a["slug"] for a in self.client.get("/v1/articles").json()], ["newer", "first"])
-        self.assertEqual(self.client.get("/v1/articles/by-slug/first").json()["publishedAt"], "2025-01-01")
-        self.assertEqual(self.client.get("/v1/articles/by-slug/draft").status_code, 404)
-        self.assertEqual(Article.objects.count(), 3)
+        first = client.post("/v1/faqs", faq, format="json")
+        self.assertEqual(first.status_code, 201, first.content)
+        client.post("/v1/faqs", {**faq, "sortOrder": 1, "question": {"pl": "A?", "en": "A?"}}, format="json")
+        client.post("/v1/faqs", {**faq, "published": False}, format="json")
+        self.assertEqual([f["question"]["en"] for f in self.client.get("/v1/faqs").json()], ["A?", "Question?"])
+        self.assertEqual(len(client.get("/v1/faqs?includeUnpublished=true").json()), 3)
+
+        faq_id = first.json()["id"]
+        updated = client.put(f"/v1/faqs/{faq_id}", {**faq, "category": "support"}, format="json").json()
+        self.assertEqual(updated["category"], "support")
+        errors = client.post("/v1/faqs", {**faq, "category": "drivers", "answer": {"pl": "", "en": "<p>x</p>"}}, format="json").json()
+        self.assertEqual(errors, {"errors": {"category": "invalid", "answer.pl": "required"}})
+        self.assertEqual(client.delete(f"/v1/faqs/{faq_id}").status_code, 204)
+        self.assertEqual(Faq.objects.count(), 2)
+
+    def test_settings(self):
+        self.assertEqual(
+            self.client.get("/v1/settings").json(),
+            {"cargoRatePerKg": 50.0, "cargoMinWeightKg": 1.0, "cargoEstimatorEnabled": True},
+        )
+        body = {"cargoRatePerKg": 47.5, "cargoMinWeightKg": 2, "cargoEstimatorEnabled": False}
+        self.assertEqual(self.client.put("/v1/settings", body, format="json").status_code, 401)
+        client = self.as_user("staff@example.com", "staff-password")
+        self.assertEqual(client.put("/v1/settings", body, format="json").json(), {**body, "cargoMinWeightKg": 2.0})
+        self.assertEqual(self.client.get("/v1/settings").json()["cargoRatePerKg"], 47.5)
+        bad = client.put("/v1/settings", {"cargoRatePerKg": -1, "cargoMinWeightKg": "x"}, format="json").json()
+        self.assertEqual(bad, {"errors": {"cargoRatePerKg": "invalid", "cargoMinWeightKg": "invalid", "cargoEstimatorEnabled": "invalid"}})
+        self.assertEqual(SiteSettings.objects.count(), 1)
 
     @override_settings(MEDIA_ROOT=TEMP_MEDIA, PUBLIC_BASE_URL="https://api.example.com")
     def test_uploads(self):
@@ -409,4 +495,6 @@ class SeedTests(TestCase):
 
         call_command("seed_content", stdout=mock.MagicMock())
         call_command("seed_content", stdout=mock.MagicMock())
-        self.assertEqual((Service.objects.count(), FleetCar.objects.count(), Article.objects.count()), (3, 3, 1))
+        self.assertEqual((Service.objects.count(), FleetCar.objects.count(), Faq.objects.count()), (7, 3, 66))
+        self.assertEqual(Service.objects.filter(brand="cargo", coming_soon=True).count(), 2)
+        self.assertEqual(float(SiteSettings.load().cargo_rate_per_kg), 50.0)

@@ -9,13 +9,19 @@ from core import validation as v
 from core.utils import now_in_poland
 
 from .constants import (
+    AVAILABILITY,
     BOOKING_STATUSES,
     CONTACT_TOPICS,
     COUNTRIES,
+    GOODS_TYPES,
+    JOB_ROLES,
+    LEAD_STATUSES,
     LOCALES,
     MESSAGE_STATUSES,
     SERVICE_TYPES,
+    SHIPPING_DIRECTIONS,
     SPECIALIZED_TRANSPORT,
+    WORK_STATUSES,
 )
 
 PHONE_RE = r"[\d\s()-]{6,20}"
@@ -159,5 +165,73 @@ def validate_contact(data):
 def validate_message_update(data):
     check = v.Checker(data)
     status = check.run("status", v.choice, check.get("status"), MESSAGE_STATUSES)
+    check.raise_if_invalid()
+    return status
+
+
+# Cargo quotes and job applications mirror the frontend's `src/lib/cargo/schema.ts` and
+# `src/lib/careers/schema.ts`. A missing or unknown choice is reported as `required`, as there.
+
+
+def _required_choice(value, options):
+    if value not in options:
+        raise v.FieldError("required")
+    return value
+
+
+def _required_phone(value):
+    return _required(value, v.pattern, CONTACT_PHONE_RE, "phone", code="phone")
+
+
+def validate_cargo_quote(data):
+    check = v.Checker(data)
+    get = check.get
+    cleaned = {
+        "name": check.run("name", v.text, get("name"), 200),
+        "whatsapp": check.run("whatsapp", _required_phone, get("whatsapp")),
+        "email": check.run("email", v.email, get("email")),
+        "direction": check.run("direction", _required_choice, get("direction"), SHIPPING_DIRECTIONS),
+        "goods_type": check.run("goodsType", _required_choice, get("goodsType"), GOODS_TYPES),
+        "description": check.run("description", v.text, get("description"), 1000),
+        "weight_kg": check.run("weightKg", v.number, get("weightKg"), 0, 100_000, "number", None),
+        "destination_city": check.run("destinationCity", v.text, get("destinationCity"), 100, False),
+        "notes": check.run("notes", v.text, get("notes"), 2000, False),
+        "locale": get("locale") if get("locale") in LOCALES else "pl",
+    }
+    check.raise_if_invalid()
+    # The destination city in Poland only applies to shipments going to Poland.
+    if cleaned["direction"] == "pl_ng":
+        cleaned["destination_city"] = ""
+    return cleaned
+
+
+def _licence(value):
+    if not isinstance(value, bool):
+        raise v.FieldError("required")
+    return value
+
+
+def validate_job_application(data):
+    check = v.Checker(data)
+    get = check.get
+    cleaned = {
+        "role": check.run("role", _required_choice, get("role"), JOB_ROLES),
+        "name": check.run("name", v.text, get("name"), 200),
+        "email": check.run("email", v.email, get("email")),
+        "phone": check.run("phone", _required_phone, get("phone")),
+        "city": check.run("city", v.text, get("city"), 100),
+        "has_licence": check.run("hasLicence", _licence, get("hasLicence")),
+        "work_status": check.run("workStatus", _required_choice, get("workStatus"), WORK_STATUSES),
+        "availability": check.run("availability", _required_choice, get("availability"), AVAILABILITY),
+        "message": check.run("message", v.text, get("message"), 3000, False),
+        "locale": get("locale") if get("locale") in LOCALES else "pl",
+    }
+    check.raise_if_invalid()
+    return cleaned
+
+
+def validate_lead_update(data):
+    check = v.Checker(data)
+    status = check.run("status", v.choice, check.get("status"), LEAD_STATUSES)
     check.raise_if_invalid()
     return status

@@ -1,26 +1,27 @@
 {
   "services": [
     {
-      "id": "drivers-partners",
+      "brand": "service",
       "slug": "drivers-partners",
       "title": {
         "pl": "Kierowcy i partnerzy",
         "en": "Drivers & Partners"
       },
       "summary": {
-        "pl": "Wynajem aut, kierowcy taxi i start na Uber, Bolt i FreeNow – od dnia do długiego terminu.",
-        "en": "Car rental, taxi drivers and getting started on Uber, Bolt and FreeNow – from daily to long-term."
+        "pl": "Wynajem aut, kierowcy taxi i start na Uber, Bolt i FREE NOW – od dnia do długiego terminu.",
+        "en": "Car rental, taxi drivers and getting started on Uber, Bolt and FREE NOW – from daily to long-term."
       },
       "content": {
-        "pl": "<p>Oferujemy niezawodne rozwiązania transportowe w całej Polsce – dla osób prywatnych, firm i dostawców. Niezależnie od tego, czy potrzebujesz wynajmu auta, kierowcy taxi, czy chcesz zacząć jeździć w aplikacjach takich jak Uber, Bolt lub FreeNow, zapewniamy sprawną i bezproblemową obsługę za każdym razem.</p><p>Nasze zadbane pojazdy odpowiadają na każdą potrzebę i budżet, z elastycznym wynajmem od jednego dnia po długi termin. Z FleetFlow masz gwarancję profesjonalnego i wygodnego rozwiązania, dopasowanego do Twojego grafiku.</p>",
-        "en": "<p>We offer reliable transportation solutions across Poland, catering to individuals, businesses and delivery providers. Whether you need a car rental, a taxi driver, or want to drive with a ride-hailing service like Uber, Bolt or FreeNow, we ensure a smooth, hassle-free experience every time.</p><p>Our well-maintained vehicles meet every need and budget, offering flexible rental options from daily to long-term. With FleetFlow, you're guaranteed a professional and convenient travel solution, tailored to fit your schedule.</p>"
+        "pl": "<p>Oferujemy niezawodne rozwiązania transportowe w całej Polsce – dla osób prywatnych, firm i dostawców. Niezależnie od tego, czy potrzebujesz wynajmu auta, kierowcy taxi, czy chcesz zacząć jeździć w aplikacjach takich jak Uber, Bolt lub FREE NOW, zapewniamy sprawną i bezproblemową obsługę za każdym razem.</p><p>Nasze zadbane pojazdy odpowiadają na każdą potrzebę i budżet, z elastycznym wynajmem od jednego dnia po długi termin. Z FleetFlow masz gwarancję profesjonalnego i wygodnego rozwiązania, dopasowanego do Twojego grafiku.</p>",
+        "en": "<p>We offer reliable transportation solutions across Poland, catering to individuals, businesses and delivery providers. Whether you need a car rental, a taxi driver, or want to drive with a ride-hailing service like Uber, Bolt or FREE NOW, we ensure a smooth, hassle-free experience every time.</p><p>Our well-maintained vehicles meet every need and budget, offering flexible rental options from daily to long-term. With FleetFlow, you're guaranteed a professional and convenient travel solution, tailored to fit your schedule.</p>"
       },
       "image": "/images/fleetflow-taxi.webp",
       "published": true,
+      "comingSoon": false,
       "sortOrder": 1
     },
     {
-      "id": "fleet-management",
+      "brand": "service",
       "slug": "fleet-management",
       "title": {
         "pl": "Zarządzanie flotą",
@@ -36,31 +37,112 @@
       },
       "image": "/images/hero-car.webp",
       "published": true,
+      "comingSoon": false,
       "sortOrder": 2
     },
     {
-      "id": "van-cargo",
-      "slug": "van-cargo",
+      "brand": "cargo",
+      "slug": "air-cargo",
       "title": {
-        "pl": "Przewóz busem (cargo)",
-        "en": "Van Cargo Service"
+        "pl": "Cargo lotnicze",
+        "en": "Air Cargo"
       },
       "summary": {
-        "pl": "Szybki, bezpieczny i opłacalny przewóz paczek, mebli i sprzętu busem – od drzwi do drzwi.",
-        "en": "Fast, secure and cost-effective van transport for packages, furniture and equipment – door to door."
+        "pl": "Skonsolidowana wysyłka lotnicza między Nigerią a Polską, w obu kierunkach.",
+        "en": "Consolidated air cargo shipping between Nigeria and Poland, in both directions."
       },
       "content": {
-        "pl": "<p>Oferujemy <strong>szybki, bezpieczny i opłacalny przewóz towarów busem</strong> dla firm i osób prywatnych w całej Polsce. Niezależnie od tego, czy chcesz przewieźć paczki, meble, sprzęt czy towary hurtowe, nasza flota zadbanych busów zapewnia <strong>terminową i bezpieczną dostawę</strong>.</p><h3>Dlaczego warto wybrać nasz przewóz busem?</h3><ul><li><strong>Elastyczne rozwiązania:</strong> idealne dla małych i średnich ładunków</li><li><strong>Dostawa od drzwi do drzwi:</strong> bezproblemowy odbiór i dostarczenie</li><li><strong>Optymalizacja tras z AI:</strong> szybsze i wydajniejsze dostawy</li><li><strong>Profesjonalni kierowcy:</strong> przeszkoleni i doświadczeni w bezpiecznym przewozie</li><li><strong>Przystępne ceny:</strong> konkurencyjne stawki bez ukrytych opłat</li></ul><p><strong>Chcesz z nami współpracować? Poproś o bezpłatną wycenę już dziś!</strong></p>",
-        "en": "<p>We offer <strong>fast, secure and cost-effective van cargo transportation</strong> for businesses and individuals across Poland. Whether you need to transport packages, furniture, equipment or bulk goods, our fleet of well-maintained vans ensures <strong>timely and safe delivery</strong>.</p><h3>Why choose our van cargo service?</h3><ul><li><strong>Flexible solutions:</strong> ideal for small to medium-sized cargo</li><li><strong>Door-to-door delivery:</strong> hassle-free pickup and drop-off</li><li><strong>AI-based route optimisation:</strong> faster and more efficient deliveries</li><li><strong>Professional drivers:</strong> trained and experienced for safe handling</li><li><strong>Affordable pricing:</strong> competitive rates with no hidden fees</li></ul><p><strong>Want to partner with us? Get a free quote today!</strong></p>"
+        "pl": "<p>Skonsolidowana wysyłka lotnicza między Nigerią a Polską. Współpracujemy ze sprawdzonymi partnerami po obu stronach, którzy odbierają, dokumentują, transportują i dostarczają Twoje rzeczy.</p>",
+        "en": "<p>Consolidated air cargo shipping between Nigeria and Poland. We work with trusted partners on both ends to collect, document, transport and deliver your items.</p>"
       },
-      "image": "/images/fleetflow-van.webp",
+      "image": "",
       "published": true,
-      "sortOrder": 3
+      "comingSoon": false,
+      "sortOrder": 10
+    },
+    {
+      "brand": "cargo",
+      "slug": "consolidated-cargo",
+      "title": {
+        "pl": "Cargo skonsolidowane",
+        "en": "Consolidated Cargo"
+      },
+      "summary": {
+        "pl": "Łączymy kwalifikujące się przesyłki wielu klientów w jedną wysyłkę.",
+        "en": "Eligible shipments from multiple customers combined into one consignment."
+      },
+      "content": {
+        "pl": "<p>Łączymy kwalifikujące się przesyłki wielu klientów w skonsolidowane wysyłki, co pozwala wysyłać sprawniej i taniej niż pojedynczo. Rzeczy każdego klienta są osobno ewidencjonowane, oznaczane i śledzone w ramach wysyłki.</p>",
+        "en": "<p>We combine eligible shipments from multiple customers into consolidated consignments, which makes shipping more efficient and cost-effective than sending items individually. Each customer’s items are recorded, labelled and tracked separately within the shipment.</p>"
+      },
+      "image": "",
+      "published": true,
+      "comingSoon": false,
+      "sortOrder": 11
+    },
+    {
+      "brand": "cargo",
+      "slug": "delivery-poland",
+      "title": {
+        "pl": "Dostawa w całej Polsce",
+        "en": "Delivery Across Poland"
+      },
+      "summary": {
+        "pl": "Zapytaj o odbiór lub dostawę pod Twój adres w Polsce.",
+        "en": "Ask about collection or delivery to your address in Poland."
+      },
+      "content": {
+        "pl": "<p>Możesz zapytać o odbiór lub dostawę w zależności od miejsca docelowego i przesyłki. Dostawę pod Twój adres można zorganizować – podaj swoją lokalizację w zapytaniu o wycenę.</p>",
+        "en": "<p>You can enquire about collection or delivery arrangements based on your destination and shipment. Delivery to your address can be arranged – tell us your location when you request a quotation.</p>"
+      },
+      "image": "",
+      "published": true,
+      "comingSoon": false,
+      "sortOrder": 12
+    },
+    {
+      "brand": "cargo",
+      "slug": "sea-freight",
+      "title": {
+        "pl": "Fracht morski",
+        "en": "Sea Freight"
+      },
+      "summary": {
+        "pl": "Dla większych ładunków skonsolidowanych.",
+        "en": "For larger consolidated loads."
+      },
+      "content": {
+        "pl": "<p>Fracht morski dla większych ładunków skonsolidowanych. Napisz do nas, jeśli chcesz dowiedzieć się, kiedy usługa będzie dostępna.</p>",
+        "en": "<p>Sea freight for larger consolidated loads. Contact us if you would like to know when this service becomes available.</p>"
+      },
+      "image": "",
+      "published": true,
+      "comingSoon": true,
+      "sortOrder": 13
+    },
+    {
+      "brand": "cargo",
+      "slug": "vehicle-shipping",
+      "title": {
+        "pl": "Wysyłka pojazdów",
+        "en": "Vehicle Shipping"
+      },
+      "summary": {
+        "pl": "Wysyłka samochodów między Polską a Nigerią.",
+        "en": "Shipping vehicles between Poland and Nigeria."
+      },
+      "content": {
+        "pl": "<p>Wysyłka pojazdów między Polską a Nigerią. Napisz do nas, jeśli chcesz dowiedzieć się, kiedy usługa będzie dostępna.</p>",
+        "en": "<p>Shipping vehicles between Poland and Nigeria. Contact us if you would like to know when this service becomes available.</p>"
+      },
+      "image": "",
+      "published": true,
+      "comingSoon": true,
+      "sortOrder": 14
     }
   ],
   "fleet": [
     {
-      "id": "prius-2011",
       "name": "Toyota Prius III",
       "year": 2011,
       "pricePerWeek": 600,
@@ -96,7 +178,6 @@
       "sortOrder": 1
     },
     {
-      "id": "corolla-2007",
       "name": "Toyota Corolla",
       "year": 2007,
       "pricePerWeek": 500,
@@ -132,7 +213,6 @@
       "sortOrder": 2
     },
     {
-      "id": "corolla-2021-comfort",
       "name": "Toyota Corolla Comfort",
       "year": 2021,
       "pricePerWeek": 900,
@@ -170,25 +250,869 @@
       "sortOrder": 3
     }
   ],
-  "articles": [
+  "faqs": [
     {
-      "id": "psychotechnical-tests",
-      "slug": "psychotechnical-tests",
-      "title": {
-        "pl": "Badania psychotechniczne – czym są i na czym polegają?",
-        "en": "Psychotechnical tests – what are they and what do they involve?"
+      "category": "general",
+      "question": {
+        "en": "What is FleetFlow Service?",
+        "pl": "Czym jest FleetFlow Service?"
       },
-      "summary": {
-        "pl": "Każdy zawodowy kierowca w Polsce musi przejść badania psychotechniczne. Wyjaśniamy, co sprawdzają, jak wyglądają i kiedy trzeba je wykonać.",
-        "en": "Every professional driver in Poland has to pass psychotechnical tests. Here is what they check, how they work and when you need to take them."
+      "answer": {
+        "en": "<p>FleetFlow Service Sp. z o.o. is a transport and fleet-management company based in Kraków, Poland. We provide vehicle rental and access solutions for drivers, support driver onboarding, and offer transport and mobility services.</p>",
+        "pl": "<p>FleetFlow Service Sp. z o.o. to firma transportowa i zarządzająca flotą z siedzibą w Krakowie. Zapewniamy wynajem i dostęp do pojazdów dla kierowców, wspieramy wdrożenie kierowców oraz oferujemy usługi transportowe i mobilności.</p>"
       },
-      "body": {
-        "pl": "<h2>Czym są badania psychotechniczne?</h2><p>Badania psychotechniczne (psychotesty) to kluczowy element oceny predyspozycji przyszłych kierowców taxi. Sprawdzają nie tylko zdolności poznawcze i psychomotoryczne, ale też umiejętność radzenia sobie w sytuacjach zawodowych, takich jak wielogodzinna jazda w korkach czy kontakt z pasażerami. Odpowiednie przygotowanie i regularne badania są niezbędne dla bezpieczeństwa kierowcy i pasażerów.</p><h2>Na czym polegają badania psychotechniczne?</h2><p>W badaniach psychotechnicznych stosuje się różne metody, m.in.:</p><ul><li><strong>Wywiad psychologiczny</strong> – pozwala poznać historię emocjonalną i psychologiczną kandydata.</li><li><strong>Testy pisemne</strong> – oceniają zdolności poznawcze i procesy intelektualne.</li><li><strong>Testy aparaturowe</strong> – sprawdzają sprawność psychomotoryczną, np. koordynację wzrokowo-ruchową i czas reakcji.</li></ul><p>Łącznie dają one pełny obraz profilu psychologicznego i emocjonalnego badanej osoby. Badania oceniają nie tylko, jak ktoś radzi sobie w trudnych warunkach pracy, ale też jego dojrzałość społeczną i emocjonalną – co jest szczególnie ważne w zawodach wymagających dużej sprawności psychomotorycznej.</p><h2>Kto i kiedy powinien wykonać psychotesty?</h2><p>Psychotesty musi przejść każdy, kto chce zawodowo prowadzić pojazdy. Badania wykonuje się w ośrodku medycznym z odpowiednim wyposażeniem. Pierwsze badanie trzeba przejść przed uzyskaniem kwalifikacji zawodowych, a kolejne – w ramach szkoleń okresowych. Zawodowi kierowcy powtarzają badania psychotechniczne co 5 lat do ukończenia 60. roku życia, a później co 30 miesięcy.</p><h2>Badania psychotechniczne a psychologiczne</h2><p>Badania psychotechniczne i psychologiczne bywają mylone, ale służą innym celom:</p><ul><li><strong>Badania psychologiczne</strong> – dotyczą ogólnego stanu psychicznego i samopoczucia.</li><li><strong>Badania psychotechniczne</strong> – oceniają zdolność do wykonywania konkretnych zadań zawodowych.</li></ul><p>Krótko mówiąc, badania psychotechniczne mają charakter praktyczny – sprawdzają, czy ktoś ma umiejętności potrzebne w zawodach wymagających precyzji psychomotorycznej i bezpieczeństwa. Badania psychologiczne są szersze i obejmują wiele aspektów zdrowia psychicznego i stanu emocjonalnego.</p>",
-        "en": "<h2>What are psychotechnical tests?</h2><p>Psychotechnical tests (or psychotests) are an essential part of evaluating the suitability of future taxi drivers. They assess not only cognitive and psychomotor skills but also the ability to handle professional situations, such as long hours of driving in traffic or interacting with passengers. Proper preparation and regular testing are crucial for the safety of both the driver and passengers.</p><h2>What do psychotechnical tests involve?</h2><p>Psychotechnical tests use a variety of methods, including:</p><ul><li><strong>Psychological interview</strong> – provides insight into the candidate's emotional and psychological history.</li><li><strong>Written tests</strong> – assess cognitive abilities and intellectual processes.</li><li><strong>Apparatus tests</strong> – focus on psychomotor skills, such as visual-motor coordination and reaction time.</li></ul><p>Together, these techniques give a comprehensive picture of a person's psychological and emotional profile. The tests evaluate not only how well someone can work in challenging conditions, but also their social and emotional maturity – which is particularly important in professions where psychomotor efficiency is essential.</p><h2>Who should take psychotests, and when?</h2><p>Anyone intending to drive professionally must undergo psychotests. The tests are conducted at a medical centre with the necessary equipment. The first test must be completed before obtaining professional qualifications, with further tests during periodic training. Professional drivers must repeat the psychotechnical tests every 5 years until they turn 60, and every 30 months after that.</p><h2>Psychotechnical vs psychological tests</h2><p>Psychotechnical and psychological tests are often confused, but they serve different purposes:</p><ul><li><strong>Psychological tests</strong> – focus on a person's overall mental state and well-being.</li><li><strong>Psychotechnical tests</strong> – assess the ability to perform specific professional tasks.</li></ul><p>In short, psychotechnical tests are practical: they check whether someone has the skills needed for professions that demand psychomotor precision and safety. Psychological tests are broader and cover many aspects of mental health and emotional state.</p>"
-      },
-      "coverImage": "",
       "published": true,
-      "publishedAt": "2025-02-18"
+      "sortOrder": 1
+    },
+    {
+      "category": "general",
+      "question": {
+        "en": "Where does FleetFlow Service operate?",
+        "pl": "Gdzie działa FleetFlow Service?"
+      },
+      "answer": {
+        "en": "<p>Our operations are based in Kraków, with services and opportunities in selected locations including Kraków and Katowice. Availability may vary depending on the service and location.</p>",
+        "pl": "<p>Działamy z Krakowa, a usługi i oferty pracy są dostępne w wybranych lokalizacjach, m.in. w Krakowie i Katowicach. Dostępność może zależeć od usługi i miejsca.</p>"
+      },
+      "published": true,
+      "sortOrder": 2
+    },
+    {
+      "category": "general",
+      "question": {
+        "en": "What services does FleetFlow offer?",
+        "pl": "Jakie usługi oferuje FleetFlow?"
+      },
+      "answer": {
+        "en": "<p>Our services include:</p><ul><li>Vehicle rental for professional drivers and couriers.</li><li>Driver and courier onboarding and administrative support.</li><li>Vehicle access for app-based taxi and delivery work, subject to eligibility.</li><li>Airport transfers and private transport arrangements.</li><li>Mobility and transport solutions for individuals and businesses.</li></ul>",
+        "pl": "<p>Nasze usługi obejmują:</p><ul><li>Wynajem pojazdów dla zawodowych kierowców i kurierów.</li><li>Wdrożenie i wsparcie administracyjne dla kierowców i kurierów.</li><li>Dostęp do pojazdów do pracy w aplikacjach taxi i dostawczych, po spełnieniu wymagań.</li><li>Transfery lotniskowe i przewozy prywatne.</li><li>Rozwiązania transportowe dla osób prywatnych i firm.</li></ul>"
+      },
+      "published": true,
+      "sortOrder": 3
+    },
+    {
+      "category": "general",
+      "question": {
+        "en": "Does FleetFlow provide services to individuals and businesses?",
+        "pl": "Czy FleetFlow obsługuje osoby prywatne i firmy?"
+      },
+      "answer": {
+        "en": "<p>Yes. We work with individual drivers, couriers, passengers and business customers. The available arrangements depend on the service requested.</p>",
+        "pl": "<p>Tak. Współpracujemy z kierowcami, kurierami, pasażerami i klientami biznesowymi. Dostępne rozwiązania zależą od rodzaju usługi.</p>"
+      },
+      "published": true,
+      "sortOrder": 4
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "How can I join FleetFlow as a driver or courier?",
+        "pl": "Jak dołączyć do FleetFlow jako kierowca lub kurier?"
+      },
+      "answer": {
+        "en": "<p>You can express your interest through the relevant application form on our website. After receiving your application, we review your information and contact you if your profile matches an available opportunity.</p>",
+        "pl": "<p>Zgłoś zainteresowanie przez odpowiedni formularz na naszej stronie. Po otrzymaniu zgłoszenia sprawdzimy Twoje dane i skontaktujemy się z Tobą, jeśli Twój profil pasuje do dostępnej oferty.</p>"
+      },
+      "published": true,
+      "sortOrder": 5
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "Can foreigners apply to become FleetFlow drivers or couriers?",
+        "pl": "Czy cudzoziemcy mogą aplikować jako kierowcy lub kurierzy FleetFlow?"
+      },
+      "answer": {
+        "en": "<p>Yes. Foreign nationals may apply, provided they meet the relevant legal requirements for working in Poland. Requirements depend on nationality, residence status, the type of work and the platform involved.</p>",
+        "pl": "<p>Tak. Cudzoziemcy mogą aplikować, jeśli spełniają wymagania prawne dotyczące pracy w Polsce. Wymagania zależą od obywatelstwa, statusu pobytowego, rodzaju pracy i platformy.</p>"
+      },
+      "published": true,
+      "sortOrder": 6
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "Do I need to live in Poland before applying?",
+        "pl": "Czy muszę mieszkać w Polsce, aby aplikować?"
+      },
+      "answer": {
+        "en": "<p>Our recruitment generally focuses on candidates already residing in Poland. Applications from people living abroad may be considered depending on the role and recruitment requirements.</p>",
+        "pl": "<p>Rekrutujemy głównie osoby, które już mieszkają w Polsce. Zgłoszenia osób mieszkających za granicą możemy rozważyć w zależności od stanowiska i wymagań.</p>"
+      },
+      "published": true,
+      "sortOrder": 7
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "Does FleetFlow help with work permits?",
+        "pl": "Czy FleetFlow pomaga w uzyskaniu zezwolenia na pracę?"
+      },
+      "answer": {
+        "en": "<p>Where applicable, FleetFlow may assist with employer-side documentation for eligible candidates. A work permit does not itself guarantee a visa, residence permit or entry into Poland. Candidates should understand the applicable immigration requirements before proceeding.</p>",
+        "pl": "<p>W uzasadnionych przypadkach FleetFlow może pomóc w dokumentach po stronie pracodawcy dla kwalifikujących się kandydatów. Zezwolenie na pracę samo w sobie nie gwarantuje wizy, zezwolenia na pobyt ani wjazdu do Polski. Przed rozpoczęciem procedury zapoznaj się z wymaganiami imigracyjnymi.</p>"
+      },
+      "published": true,
+      "sortOrder": 8
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "Do I need a Polish driving licence?",
+        "pl": "Czy potrzebuję polskiego prawa jazdy?"
+      },
+      "answer": {
+        "en": "<p>For professional taxi driving in Poland, you must meet the applicable Polish driving-licence requirements. For courier work, the requirements depend on the delivery method, vehicle type and applicable regulations. Whether a foreign licence can be used or must be exchanged depends on the issuing country and Polish law.</p>",
+        "pl": "<p>Do zawodowego przewozu osób taksówką musisz spełniać polskie wymagania dotyczące prawa jazdy. W pracy kuriera wymagania zależą od sposobu dostaw, rodzaju pojazdu i przepisów. To, czy można korzystać z zagranicznego prawa jazdy, czy trzeba je wymienić, zależy od kraju wydania i polskiego prawa.</p>"
+      },
+      "published": true,
+      "sortOrder": 9
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "What documents may be required to become a driver or courier?",
+        "pl": "Jakie dokumenty mogą być potrzebne, aby zostać kierowcą lub kurierem?"
+      },
+      "answer": {
+        "en": "<p>Depending on your circumstances and the type of work, documents may include:</p><ul><li>Valid identity and residence documents.</li><li>Driving licence, where required.</li><li>Medical certificate, where required.</li><li>Psychological assessment certificate, where required.</li><li>Criminal-record certificates, where required.</li><li>Work authorisation, where applicable.</li><li>Additional documents required by the relevant municipality, operator or delivery platform.</li></ul><p>Requirements may differ depending on your location, legal status and activity.</p>",
+        "pl": "<p>W zależności od sytuacji i rodzaju pracy mogą to być:</p><ul><li>Ważne dokumenty tożsamości i pobytowe.</li><li>Prawo jazdy, jeśli jest wymagane.</li><li>Orzeczenie lekarskie, jeśli jest wymagane.</li><li>Orzeczenie psychologiczne, jeśli jest wymagane.</li><li>Zaświadczenia o niekaralności, jeśli są wymagane.</li><li>Dokument potwierdzający prawo do pracy, jeśli dotyczy.</li><li>Dodatkowe dokumenty wymagane przez gminę, przewoźnika lub platformę dostawczą.</li></ul><p>Wymagania mogą się różnić w zależności od miejsca, statusu prawnego i rodzaju działalności.</p>"
+      },
+      "published": true,
+      "sortOrder": 10
+    },
+    {
+      "category": "onboarding",
+      "question": {
+        "en": "Can I apply if I have no professional driving experience?",
+        "pl": "Czy mogę aplikować bez doświadczenia zawodowego?"
+      },
+      "answer": {
+        "en": "<p>You may submit an application. Relevant driving experience, familiarity with navigation applications and knowledge of local roads can be useful. Each application is assessed according to the available opportunity and its requirements.</p>",
+        "pl": "<p>Tak, możesz złożyć zgłoszenie. Przydatne są doświadczenie za kierownicą, znajomość aplikacji nawigacyjnych i lokalnych dróg. Każde zgłoszenie oceniamy pod kątem dostępnej oferty i jej wymagań.</p>"
+      },
+      "published": true,
+      "sortOrder": 11
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Can I rent a vehicle from FleetFlow for Uber or Bolt?",
+        "pl": "Czy mogę wynająć od FleetFlow auto do pracy w Uber lub Bolt?"
+      },
+      "answer": {
+        "en": "<p>FleetFlow offers vehicle rental and driver-access arrangements for eligible drivers. Vehicle availability, rental terms and platform requirements must be confirmed before an agreement is made.</p>",
+        "pl": "<p>FleetFlow oferuje wynajem i dostęp do pojazdów dla kwalifikujących się kierowców. Dostępność aut, warunki najmu i wymagania platform potwierdzamy przed zawarciem umowy.</p>"
+      },
+      "published": true,
+      "sortOrder": 12
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Can I rent a vehicle for courier or food-delivery work?",
+        "pl": "Czy mogę wynająć auto do pracy kuriera lub dostaw jedzenia?"
+      },
+      "answer": {
+        "en": "<p>Depending on availability and the rental agreement, selected vehicles may be available for delivery activities. Confirm that the vehicle and proposed use are permitted by FleetFlow and accepted by your chosen platform before starting.</p>",
+        "pl": "<p>W zależności od dostępności i umowy najmu wybrane auta mogą być dostępne do dostaw. Przed rozpoczęciem pracy potwierdź, że FleetFlow zezwala na takie użycie pojazdu, a wybrana platforma je akceptuje.</p>"
+      },
+      "published": true,
+      "sortOrder": 13
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "What types of vehicles are available?",
+        "pl": "Jakie auta są dostępne?"
+      },
+      "answer": {
+        "en": "<p>Our fleet and rental options may include selected hybrid and petrol vehicles. The available models depend on current fleet availability. Please check the relevant vehicle listing or rental offer for current details.</p>",
+        "pl": "<p>Nasza flota może obejmować wybrane auta hybrydowe i benzynowe. Dostępne modele zależą od aktualnej dostępności. Szczegóły znajdziesz w ofercie wynajmu.</p>"
+      },
+      "published": true,
+      "sortOrder": 14
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "How much does it cost to rent a vehicle?",
+        "pl": "Ile kosztuje wynajem auta?"
+      },
+      "answer": {
+        "en": "<p>Rental prices depend on the vehicle, rental period and agreed terms. The applicable weekly or monthly price will be provided in the specific offer before you enter into an agreement.</p>",
+        "pl": "<p>Cena zależy od auta, okresu najmu i uzgodnionych warunków. Cenę tygodniową lub miesięczną podajemy w konkretnej ofercie przed zawarciem umowy.</p>"
+      },
+      "published": true,
+      "sortOrder": 15
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Is a deposit required?",
+        "pl": "Czy wymagana jest kaucja?"
+      },
+      "answer": {
+        "en": "<p>Deposit requirements depend on the vehicle and rental agreement. Any applicable deposit and payment conditions should be confirmed before signing the agreement.</p>",
+        "pl": "<p>Wymagania dotyczące kaucji zależą od auta i umowy najmu. Kaucję i warunki płatności potwierdzamy przed podpisaniem umowy.</p>"
+      },
+      "published": true,
+      "sortOrder": 16
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "What is included in the rental price?",
+        "pl": "Co obejmuje cena wynajmu?"
+      },
+      "answer": {
+        "en": "<p>Inclusions vary by vehicle and agreement. Insurance, servicing, maintenance, tyres, fuel and other operating costs may be treated differently. Please review the rental agreement carefully to understand which costs are included and which remain your responsibility.</p>",
+        "pl": "<p>To zależy od auta i umowy. Ubezpieczenie, serwis, konserwacja, opony, paliwo i inne koszty eksploatacji mogą być rozliczane różnie. Uważnie przeczytaj umowę najmu, aby wiedzieć, które koszty są wliczone, a które ponosisz Ty.</p>"
+      },
+      "published": true,
+      "sortOrder": 17
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Can I use a FleetFlow rental vehicle for personal purposes?",
+        "pl": "Czy mogę używać auta z FleetFlow do celów prywatnych?"
+      },
+      "answer": {
+        "en": "<p>Use of the vehicle is governed by the rental agreement. You should obtain confirmation of permitted use before using the vehicle for purposes outside the agreed professional activity.</p>",
+        "pl": "<p>Zasady korzystania z auta określa umowa najmu. Zanim użyjesz auta poza uzgodnioną działalnością zawodową, uzyskaj potwierdzenie, że jest to dozwolone.</p>"
+      },
+      "published": true,
+      "sortOrder": 18
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Can I rent a vehicle for a short period?",
+        "pl": "Czy mogę wynająć auto na krótko?"
+      },
+      "answer": {
+        "en": "<p>Rental periods depend on vehicle availability and the terms offered. The minimum rental period will be specified in the relevant offer.</p>",
+        "pl": "<p>Okres najmu zależy od dostępności aut i oferowanych warunków. Minimalny okres najmu jest podany w ofercie.</p>"
+      },
+      "published": true,
+      "sortOrder": 19
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Can I return the vehicle before the end of the agreement?",
+        "pl": "Czy mogę zwrócić auto przed końcem umowy?"
+      },
+      "answer": {
+        "en": "<p>Early termination is subject to the terms of your rental agreement. Please review the notice period, fees and return conditions before signing.</p>",
+        "pl": "<p>Wcześniejsze zakończenie najmu zależy od warunków umowy. Przed podpisaniem sprawdź okres wypowiedzenia, opłaty i warunki zwrotu.</p>"
+      },
+      "published": true,
+      "sortOrder": 20
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "What happens if the rental vehicle breaks down?",
+        "pl": "Co zrobić, gdy wynajęte auto się zepsuje?"
+      },
+      "answer": {
+        "en": "<p>Follow the breakdown and assistance instructions provided with your rental agreement. Contact the designated assistance provider or FleetFlow contact specified in your agreement. Do not arrange major repairs without the required authorisation.</p>",
+        "pl": "<p>Postępuj zgodnie z instrukcjami dotyczącymi awarii i assistance dołączonymi do umowy. Skontaktuj się ze wskazanym assistance lub osobą kontaktową FleetFlow z umowy. Nie zlecaj poważnych napraw bez wymaganej zgody.</p>"
+      },
+      "published": true,
+      "sortOrder": 21
+    },
+    {
+      "category": "rental",
+      "question": {
+        "en": "Who pays for fuel, fines and parking?",
+        "pl": "Kto płaci za paliwo, mandaty i parkowanie?"
+      },
+      "answer": {
+        "en": "<p>Responsibility for fuel, parking charges, traffic fines and other operating expenses is determined by the rental agreement and applicable law. Drivers should check these terms before collecting the vehicle.</p>",
+        "pl": "<p>Odpowiedzialność za paliwo, opłaty parkingowe, mandaty i inne koszty eksploatacji określają umowa najmu i przepisy. Sprawdź te warunki przed odbiorem auta.</p>"
+      },
+      "published": true,
+      "sortOrder": 22
+    },
+    {
+      "category": "payments",
+      "question": {
+        "en": "How much can I earn as a FleetFlow driver or courier?",
+        "pl": "Ile mogę zarobić jako kierowca lub kurier FleetFlow?"
+      },
+      "answer": {
+        "en": "<p>Earnings depend on factors such as working hours, location, demand, platform rates, completed trips or deliveries, expenses and the agreement you have with FleetFlow. We do not guarantee a fixed income or a specific number of trips or deliveries.</p>",
+        "pl": "<p>Zarobki zależą m.in. od godzin pracy, lokalizacji, popytu, stawek platform, liczby kursów lub dostaw, kosztów i umowy z FleetFlow. Nie gwarantujemy stałego dochodu ani określonej liczby kursów czy dostaw.</p>"
+      },
+      "published": true,
+      "sortOrder": 23
+    },
+    {
+      "category": "payments",
+      "question": {
+        "en": "Does FleetFlow guarantee a minimum income?",
+        "pl": "Czy FleetFlow gwarantuje minimalny dochód?"
+      },
+      "answer": {
+        "en": "<p>Income depends on the particular working arrangement. Unless a minimum amount is expressly stated in a signed employment or other agreement, earnings should not be considered guaranteed.</p>",
+        "pl": "<p>Dochód zależy od formy współpracy. Jeśli minimalna kwota nie jest wprost zapisana w podpisanej umowie o pracę lub innej umowie, zarobki nie są gwarantowane.</p>"
+      },
+      "published": true,
+      "sortOrder": 24
+    },
+    {
+      "category": "payments",
+      "question": {
+        "en": "How are payments and settlements handled?",
+        "pl": "Jak wyglądają płatności i rozliczenia?"
+      },
+      "answer": {
+        "en": "<p>Payment arrangements depend on the working model and the relevant agreement. The applicable settlement period, payment method, deductions and supporting records should be explained before you begin working.</p>",
+        "pl": "<p>Sposób rozliczeń zależy od modelu współpracy i umowy. Okres rozliczeniowy, forma płatności, potrącenia i dokumentacja powinny zostać wyjaśnione przed rozpoczęciem pracy.</p>"
+      },
+      "published": true,
+      "sortOrder": 25
+    },
+    {
+      "category": "payments",
+      "question": {
+        "en": "What expenses should I consider before starting?",
+        "pl": "Jakie koszty warto uwzględnić przed rozpoczęciem pracy?"
+      },
+      "answer": {
+        "en": "<p>Depending on your arrangement, expenses may include vehicle rental, fuel, platform fees, taxes, social-security contributions, insurance-related costs and other operating expenses. Make sure you understand your expected costs before accepting an offer.</p>",
+        "pl": "<p>W zależności od formy współpracy mogą to być: wynajem auta, paliwo, opłaty platform, podatki, składki ZUS, koszty związane z ubezpieczeniem i inne koszty eksploatacji. Zanim przyjmiesz ofertę, upewnij się, że rozumiesz przewidywane koszty.</p>"
+      },
+      "published": true,
+      "sortOrder": 26
+    },
+    {
+      "category": "platforms",
+      "question": {
+        "en": "Can I work with Uber, Bolt or FREE NOW using a FleetFlow vehicle?",
+        "pl": "Czy mogę jeździć w Uber, Bolt lub FREE NOW autem FleetFlow?"
+      },
+      "answer": {
+        "en": "<p>Subject to eligibility, vehicle approval and the relevant arrangements, FleetFlow vehicles may be used for selected ride-hailing platforms. Platform approval and driver registration requirements must be satisfied separately.</p>",
+        "pl": "<p>Po spełnieniu wymagań, zatwierdzeniu pojazdu i uzgodnieniu warunków auta FleetFlow mogą być używane na wybranych platformach przewozowych. Zatwierdzenie przez platformę i rejestracja kierowcy to osobne wymagania.</p>"
+      },
+      "published": true,
+      "sortOrder": 27
+    },
+    {
+      "category": "platforms",
+      "question": {
+        "en": "Does FleetFlow register drivers on Uber, Bolt or FREE NOW?",
+        "pl": "Czy FleetFlow rejestruje kierowców w Uber, Bolt lub FREE NOW?"
+      },
+      "answer": {
+        "en": "<p>Driver and vehicle onboarding arrangements depend on the platform and the agreement with FleetFlow. The required documents and registration process will be explained during onboarding.</p>",
+        "pl": "<p>Wdrożenie kierowcy i pojazdu zależy od platformy i umowy z FleetFlow. Wymagane dokumenty i proces rejestracji wyjaśniamy podczas wdrożenia.</p>"
+      },
+      "published": true,
+      "sortOrder": 28
+    },
+    {
+      "category": "platforms",
+      "question": {
+        "en": "Can I work on more than one ride-hailing platform?",
+        "pl": "Czy mogę pracować na więcej niż jednej platformie?"
+      },
+      "answer": {
+        "en": "<p>This depends on the relevant platform rules and your agreement with FleetFlow. You should ensure that your registration, vehicle use and working arrangements allow the activities you intend to perform.</p>",
+        "pl": "<p>To zależy od zasad platform i Twojej umowy z FleetFlow. Upewnij się, że rejestracja, sposób korzystania z auta i forma współpracy pozwalają na planowaną działalność.</p>"
+      },
+      "published": true,
+      "sortOrder": 29
+    },
+    {
+      "category": "platforms",
+      "question": {
+        "en": "Does FleetFlow guarantee approval by Uber, Bolt or FREE NOW?",
+        "pl": "Czy FleetFlow gwarantuje akceptację przez Uber, Bolt lub FREE NOW?"
+      },
+      "answer": {
+        "en": "<p>No. Platform registration and approval are controlled by the respective platform. FleetFlow may provide relevant vehicle or administrative documentation, but cannot guarantee a platform's decision.</p>",
+        "pl": "<p>Nie. O rejestracji i akceptacji decyduje dana platforma. FleetFlow może dostarczyć dokumenty pojazdu lub administracyjne, ale nie może zagwarantować decyzji platformy.</p>"
+      },
+      "published": true,
+      "sortOrder": 30
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Can I join FleetFlow as a delivery courier?",
+        "pl": "Czy mogę dołączyć do FleetFlow jako kurier?"
+      },
+      "answer": {
+        "en": "<p>You can submit an application for available courier opportunities. Eligibility and onboarding depend on the type of delivery work, your legal right to work in Poland, the delivery platform and any applicable vehicle requirements.</p>",
+        "pl": "<p>Możesz złożyć zgłoszenie na dostępne oferty dla kurierów. Wymagania i wdrożenie zależą od rodzaju dostaw, Twojego prawa do pracy w Polsce, platformy dostawczej i wymagań dotyczących pojazdu.</p>"
+      },
+      "published": true,
+      "sortOrder": 31
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Which delivery platforms can I work with?",
+        "pl": "Z jakimi platformami dostawczymi mogę pracować?"
+      },
+      "answer": {
+        "en": "<p>FleetFlow may support eligible couriers seeking opportunities with delivery platforms such as:</p><ul><li>Glovo.</li><li>Uber Eats.</li><li>Wolt.</li></ul><p>Platform availability, registration conditions and onboarding arrangements may change. Approval is subject to each platform's requirements.</p>",
+        "pl": "<p>FleetFlow może wspierać kwalifikujących się kurierów w pracy z platformami, takimi jak:</p><ul><li>Glovo.</li><li>Uber Eats.</li><li>Wolt.</li></ul><p>Dostępność platform, warunki rejestracji i wdrożenia mogą się zmieniać. Akceptacja zależy od wymagań każdej platformy.</p>"
+      },
+      "published": true,
+      "sortOrder": 32
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Do I need a car to work as a courier?",
+        "pl": "Czy potrzebuję auta, aby pracować jako kurier?"
+      },
+      "answer": {
+        "en": "<p>Not necessarily. Depending on the platform and delivery area, courier work may be possible using a bicycle, scooter or car. The permitted vehicle types and equipment requirements should be checked with the relevant platform and confirmed under your FleetFlow arrangement.</p>",
+        "pl": "<p>Niekoniecznie. W zależności od platformy i obszaru dostaw można pracować rowerem, skuterem lub autem. Dozwolone pojazdy i wyposażenie sprawdź na platformie i potwierdź w ramach współpracy z FleetFlow.</p>"
+      },
+      "published": true,
+      "sortOrder": 33
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Can I use a FleetFlow rental car for food delivery?",
+        "pl": "Czy mogę dostarczać jedzenie autem wynajętym od FleetFlow?"
+      },
+      "answer": {
+        "en": "<p>Selected vehicles may be available for delivery activities, subject to availability and the rental agreement. Always confirm that the vehicle is authorised for the intended delivery activity before registering or working on a platform.</p>",
+        "pl": "<p>Wybrane auta mogą być dostępne do dostaw, zależnie od dostępności i umowy najmu. Zawsze potwierdź, że auto może być używane do dostaw, zanim zarejestrujesz się lub zaczniesz pracę na platformie.</p>"
+      },
+      "published": true,
+      "sortOrder": 34
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "What documents do I need to become a courier?",
+        "pl": "Jakie dokumenty są potrzebne, aby zostać kurierem?"
+      },
+      "answer": {
+        "en": "<p>Requirements depend on the platform, vehicle type and your legal status in Poland. They may include:</p><ul><li>Identity document.</li><li>Proof of legal right to work in Poland, where applicable.</li><li>Bank account or payment details requested by the platform.</li><li>Driving licence, where required for the chosen vehicle.</li><li>Vehicle documents and insurance, where applicable.</li><li>Other documents requested during platform registration.</li></ul>",
+        "pl": "<p>Wymagania zależą od platformy, rodzaju pojazdu i Twojego statusu prawnego w Polsce. Mogą to być:</p><ul><li>Dokument tożsamości.</li><li>Dokument potwierdzający prawo do pracy w Polsce, jeśli dotyczy.</li><li>Dane konta bankowego lub do wypłat wymagane przez platformę.</li><li>Prawo jazdy, jeśli wymaga go wybrany pojazd.</li><li>Dokumenty i ubezpieczenie pojazdu, jeśli dotyczy.</li><li>Inne dokumenty wymagane przy rejestracji na platformie.</li></ul>"
+      },
+      "published": true,
+      "sortOrder": 35
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Do I need previous courier experience?",
+        "pl": "Czy potrzebuję doświadczenia jako kurier?"
+      },
+      "answer": {
+        "en": "<p>Previous experience may be helpful, but you can submit an application without it. You should be comfortable using navigation applications, following delivery instructions and handling orders responsibly.</p>",
+        "pl": "<p>Doświadczenie może pomóc, ale możesz aplikować bez niego. Powinieneś swobodnie korzystać z aplikacji nawigacyjnych, stosować się do instrukcji dostawy i odpowiedzialnie obsługiwać zamówienia.</p>"
+      },
+      "published": true,
+      "sortOrder": 36
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "How do courier payments work?",
+        "pl": "Jak wyglądają wypłaty dla kurierów?"
+      },
+      "answer": {
+        "en": "<p>Payment arrangements depend on the platform and your working agreement. Platform earnings, payment schedules, fees and any deductions should be checked before you start.</p>",
+        "pl": "<p>Sposób wypłat zależy od platformy i Twojej umowy. Zarobki z platformy, harmonogram wypłat, opłaty i potrącenia sprawdź przed rozpoczęciem pracy.</p>"
+      },
+      "published": true,
+      "sortOrder": 37
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Can I work as both a taxi driver and a courier?",
+        "pl": "Czy mogę pracować jednocześnie jako kierowca taxi i kurier?"
+      },
+      "answer": {
+        "en": "<p>This may be possible, provided you meet the requirements of each activity, your platform registrations permit it and your FleetFlow agreement allows the intended vehicle use.</p>",
+        "pl": "<p>Może to być możliwe, jeśli spełniasz wymagania obu rodzajów pracy, pozwalają na to Twoje rejestracje na platformach, a umowa z FleetFlow dopuszcza takie użycie auta.</p>"
+      },
+      "published": true,
+      "sortOrder": 38
+    },
+    {
+      "category": "courier",
+      "question": {
+        "en": "Does FleetFlow guarantee a certain number of deliveries or earnings?",
+        "pl": "Czy FleetFlow gwarantuje określoną liczbę dostaw lub zarobki?"
+      },
+      "answer": {
+        "en": "<p>No. Delivery volume and earnings depend on platform demand, location, working hours, availability and other factors. FleetFlow does not guarantee a specific number of orders or income.</p>",
+        "pl": "<p>Nie. Liczba dostaw i zarobki zależą od popytu na platformie, lokalizacji, godzin pracy, dostępności i innych czynników. FleetFlow nie gwarantuje określonej liczby zamówień ani dochodu.</p>"
+      },
+      "published": true,
+      "sortOrder": 39
+    },
+    {
+      "category": "transfers",
+      "question": {
+        "en": "Does FleetFlow provide airport transfers?",
+        "pl": "Czy FleetFlow oferuje transfery lotniskowe?"
+      },
+      "answer": {
+        "en": "<p>FleetFlow offers airport transfer and private transport arrangements, subject to availability and confirmation.</p>",
+        "pl": "<p>Tak, FleetFlow oferuje transfery lotniskowe i przewozy prywatne, w zależności od dostępności i po potwierdzeniu.</p>"
+      },
+      "published": true,
+      "sortOrder": 40
+    },
+    {
+      "category": "transfers",
+      "question": {
+        "en": "Which airports can I travel to or from?",
+        "pl": "Do których lotnisk można zamówić transfer?"
+      },
+      "answer": {
+        "en": "<p>Transfer availability depends on the requested route and booking arrangements. Routes may include Kraków Airport (KRK) and Katowice Airport (KTW), subject to confirmation.</p>",
+        "pl": "<p>Dostępność transferu zależy od trasy i rezerwacji. Trasy mogą obejmować lotnisko w Krakowie (KRK) i w Katowicach (KTW), po potwierdzeniu.</p>"
+      },
+      "published": true,
+      "sortOrder": 41
+    },
+    {
+      "category": "transfers",
+      "question": {
+        "en": "How do I arrange an airport transfer?",
+        "pl": "Jak zamówić transfer lotniskowy?"
+      },
+      "answer": {
+        "en": "<p>Use the booking options provided on our website or contact FleetFlow through the published contact details. Your booking should include the travel date, pickup time, pickup location, destination and passenger requirements.</p>",
+        "pl": "<p>Skorzystaj z rezerwacji na naszej stronie lub skontaktuj się z FleetFlow przez podane dane kontaktowe. Podaj datę podróży, godzinę i miejsce odbioru, cel podróży oraz potrzeby pasażerów.</p>"
+      },
+      "published": true,
+      "sortOrder": 42
+    },
+    {
+      "category": "transfers",
+      "question": {
+        "en": "Should I provide my flight details?",
+        "pl": "Czy podać dane lotu?"
+      },
+      "answer": {
+        "en": "<p>Yes, where your booking involves an airport pickup. Providing your flight number and arrival details can help with coordination. Any waiting-time arrangements should be confirmed when the booking is accepted.</p>",
+        "pl": "<p>Tak, jeśli rezerwacja dotyczy odbioru z lotniska. Numer lotu i godzina przylotu ułatwiają koordynację. Zasady czasu oczekiwania potwierdzamy przy przyjęciu rezerwacji.</p>"
+      },
+      "published": true,
+      "sortOrder": 43
+    },
+    {
+      "category": "transfers",
+      "question": {
+        "en": "Can I book transport for a business trip or group?",
+        "pl": "Czy mogę zamówić przejazd służbowy lub grupowy?"
+      },
+      "answer": {
+        "en": "<p>Business and group transport requests may be considered depending on vehicle capacity, route and availability. The details and price should be confirmed before the journey.</p>",
+        "pl": "<p>Zapytania o przejazdy służbowe i grupowe rozpatrujemy w zależności od pojemności aut, trasy i dostępności. Szczegóły i cenę potwierdzamy przed podróżą.</p>"
+      },
+      "published": true,
+      "sortOrder": 44
+    },
+    {
+      "category": "agreements",
+      "question": {
+        "en": "Do I need to sign an agreement before collecting a vehicle?",
+        "pl": "Czy przed odbiorem auta muszę podpisać umowę?"
+      },
+      "answer": {
+        "en": "<p>Yes. The applicable rental or cooperation agreement should be reviewed and signed before the vehicle is handed over. It sets out the parties' responsibilities, payment terms, vehicle-use conditions and other important provisions.</p>",
+        "pl": "<p>Tak. Umowę najmu lub współpracy należy przeczytać i podpisać przed wydaniem auta. Określa ona obowiązki stron, warunki płatności, zasady korzystania z auta i inne ważne postanowienia.</p>"
+      },
+      "published": true,
+      "sortOrder": 45
+    },
+    {
+      "category": "agreements",
+      "question": {
+        "en": "What should I check when collecting a vehicle?",
+        "pl": "Co sprawdzić przy odbiorze auta?"
+      },
+      "answer": {
+        "en": "<p>Check the vehicle's condition, existing damage, documents, equipment and fuel level. Ensure that any visible damage is recorded in the handover documentation before you accept the vehicle.</p>",
+        "pl": "<p>Sprawdź stan auta, istniejące uszkodzenia, dokumenty, wyposażenie i poziom paliwa. Upewnij się, że widoczne uszkodzenia są wpisane do protokołu wydania, zanim przyjmiesz auto.</p>"
+      },
+      "published": true,
+      "sortOrder": 46
+    },
+    {
+      "category": "agreements",
+      "question": {
+        "en": "What should I do if I have an accident?",
+        "pl": "Co zrobić w razie wypadku lub kolizji?"
+      },
+      "answer": {
+        "en": "<p>Ensure everyone's safety and contact emergency services where necessary. Follow the legal accident-reporting requirements and the insurance and incident-reporting instructions in your agreement. Notify the designated FleetFlow contact as soon as reasonably possible.</p>",
+        "pl": "<p>Zadbaj o bezpieczeństwo wszystkich i w razie potrzeby wezwij służby ratunkowe. Postępuj zgodnie z przepisami o zgłaszaniu zdarzeń oraz instrukcjami ubezpieczeniowymi z umowy. Jak najszybciej powiadom wskazaną osobę kontaktową FleetFlow.</p>"
+      },
+      "published": true,
+      "sortOrder": 47
+    },
+    {
+      "category": "agreements",
+      "question": {
+        "en": "Can another person drive my rental vehicle?",
+        "pl": "Czy ktoś inny może prowadzić wynajęte przeze mnie auto?"
+      },
+      "answer": {
+        "en": "<p>Only drivers authorised under the rental agreement and applicable insurance conditions may drive the vehicle. Do not allow an unauthorised person to use it.</p>",
+        "pl": "<p>Auto mogą prowadzić tylko kierowcy upoważnieni w umowie najmu i zgodnie z warunkami ubezpieczenia. Nie pozwalaj korzystać z niego osobom nieupoważnionym.</p>"
+      },
+      "published": true,
+      "sortOrder": 48
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "What is FleetFlow Cargo?",
+        "pl": "Czym jest FleetFlow Cargo?"
+      },
+      "answer": {
+        "en": "<p>FleetFlow Cargo is our logistics division, offering consolidated cargo shipping between Nigeria and Poland. We work with trusted partners on both ends to collect, document, transport and deliver your items reliably.</p>",
+        "pl": "<p>FleetFlow Cargo to nasz dział logistyczny, który oferuje skonsolidowaną wysyłkę cargo między Nigerią a Polską. Współpracujemy ze sprawdzonymi partnerami po obu stronach, którzy niezawodnie odbierają, dokumentują, transportują i dostarczają Twoje rzeczy.</p>"
+      },
+      "published": true,
+      "sortOrder": 49
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Which shipping routes are currently available?",
+        "pl": "Jakie trasy wysyłki są obecnie dostępne?"
+      },
+      "answer": {
+        "en": "<p>We currently operate between Nigeria and Poland, in both directions. Contact us to confirm availability for your specific route and location.</p>",
+        "pl": "<p>Obecnie działamy między Nigerią a Polską, w obu kierunkach. Skontaktuj się z nami, aby potwierdzić dostępność dla Twojej trasy i lokalizacji.</p>"
+      },
+      "published": true,
+      "sortOrder": 50
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How does consolidated cargo shipping work?",
+        "pl": "Na czym polega skonsolidowana wysyłka cargo?"
+      },
+      "answer": {
+        "en": "<p>We combine items from multiple customers into one shipment, which allows us to offer more efficient and cost-effective shipping than sending items individually. Each customer’s items are recorded, labelled and tracked separately within the shipment.</p>",
+        "pl": "<p>Łączymy rzeczy wielu klientów w jedną wysyłkę, dzięki czemu wysyłka jest sprawniejsza i tańsza niż wysyłanie każdej rzeczy osobno. Rzeczy każdego klienta są osobno ewidencjonowane, oznaczane i śledzone w ramach wysyłki.</p>"
+      },
+      "published": true,
+      "sortOrder": 51
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "What types of goods can I send?",
+        "pl": "Jakie rzeczy mogę wysłać?"
+      },
+      "answer": {
+        "en": "<p>We accept a range of personal effects, including clothing, personal items and selected food products, subject to applicable export and import requirements. Contact us with details of what you’d like to send, and we’ll confirm whether it can be accepted.</p>",
+        "pl": "<p>Przyjmujemy różne rzeczy osobiste, w tym odzież, przedmioty osobiste i wybrane produkty spożywcze, zgodnie z obowiązującymi wymogami eksportowymi i importowymi. Napisz nam, co chcesz wysłać, a potwierdzimy, czy możemy to przyjąć.</p>"
+      },
+      "published": true,
+      "sortOrder": 52
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Do you accept food items?",
+        "pl": "Czy przyjmujecie żywność?"
+      },
+      "answer": {
+        "en": "<p>Yes, a range of food items can be shipped, subject to proper packaging and the applicable documentation for food exports. Some items may require specific certification. Let us know what you’re sending and we’ll confirm the requirements.</p>",
+        "pl": "<p>Tak, można wysłać różne produkty spożywcze, pod warunkiem właściwego zapakowania i przygotowania dokumentów wymaganych przy eksporcie żywności. Niektóre produkty mogą wymagać osobnych certyfikatów. Napisz nam, co wysyłasz, a potwierdzimy wymagania.</p>"
+      },
+      "published": true,
+      "sortOrder": 53
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Which goods are prohibited or restricted?",
+        "pl": "Jakie rzeczy są zakazane lub objęte ograniczeniami?"
+      },
+      "answer": {
+        "en": "<p>Alcohol, ponmo (cow skin), dry snail and other restricted items cannot be accepted. If you’re unsure whether a specific item can be shipped, please contact us before sending it so we can confirm.</p>",
+        "pl": "<p>Nie przyjmujemy alkoholu, ponmo (skóry wołowej), suszonych ślimaków ani innych rzeczy objętych ograniczeniami. Jeśli nie masz pewności, czy dany przedmiot można wysłać, skontaktuj się z nami przed wysyłką.</p>"
+      },
+      "published": true,
+      "sortOrder": 54
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How do I request a shipping quotation?",
+        "pl": "Jak poprosić o wycenę wysyłki?"
+      },
+      "answer": {
+        "en": "<p>Use our quotation form or message us directly on WhatsApp with details of what you’re sending, the estimated weight and your shipping direction.</p>",
+        "pl": "<p>Skorzystaj z formularza wyceny albo napisz do nas na WhatsAppie: co wysyłasz, jaka jest szacunkowa waga i w którą stronę.</p>"
+      },
+      "published": true,
+      "sortOrder": 55
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How is the shipping price calculated?",
+        "pl": "Jak obliczana jest cena wysyłki?"
+      },
+      "answer": {
+        "en": "<p>Pricing is based on the weight of your shipment. Contact us for current rates – final pricing depends on the specific items, weight and any additional handling requirements.</p>",
+        "pl": "<p>Cena zależy od wagi przesyłki. Zapytaj nas o aktualne stawki – ostateczna cena zależy od konkretnych rzeczy, wagi i ewentualnych dodatkowych czynności.</p>"
+      },
+      "published": true,
+      "sortOrder": 56
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Are customs duties and VAT included?",
+        "pl": "Czy cło i VAT są wliczone?"
+      },
+      "answer": {
+        "en": "<p>No. Our shipping rate covers freight and customs handling. Customs duties and import VAT, where applicable, are assessed separately based on the value of your goods and are the responsibility of the importer.</p>",
+        "pl": "<p>Nie. Nasza stawka obejmuje fracht i obsługę celną. Cło i VAT importowy, jeśli mają zastosowanie, są naliczane osobno na podstawie wartości towaru i obciążają importera.</p>"
+      },
+      "published": true,
+      "sortOrder": 57
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How long does delivery take?",
+        "pl": "Ile trwa dostawa?"
+      },
+      "answer": {
+        "en": "<p>Delivery times depend on the shipment schedule and customs processing. Air cargo usually takes 7 to 10 working days. We’ll confirm an estimated timeframe when you book your shipment.</p>",
+        "pl": "<p>Czas dostawy zależy od harmonogramu wysyłki i odprawy celnej. Cargo lotnicze trwa zwykle od 7 do 10 dni roboczych. Szacowany termin potwierdzimy przy rezerwacji wysyłki.</p>"
+      },
+      "published": true,
+      "sortOrder": 58
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How can I check my shipment status?",
+        "pl": "Jak sprawdzić status przesyłki?"
+      },
+      "answer": {
+        "en": "<p>We’ll keep you updated directly by email or WhatsApp at each stage of your shipment – from collection through to delivery.</p>",
+        "pl": "<p>Informujemy Cię e-mailem lub na WhatsAppie na każdym etapie wysyłki – od odbioru aż do dostawy.</p>"
+      },
+      "published": true,
+      "sortOrder": 59
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Can my shipment be delivered to my address in Poland?",
+        "pl": "Czy przesyłka może zostać dostarczona pod mój adres w Polsce?"
+      },
+      "answer": {
+        "en": "<p>Yes, delivery to your address can be arranged. Let us know your location when you request a quotation.</p>",
+        "pl": "<p>Tak, dostawę pod Twój adres można zorganizować. Podaj swoją lokalizację w zapytaniu o wycenę.</p>"
+      },
+      "published": true,
+      "sortOrder": 60
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "Can I send goods from Poland to Nigeria?",
+        "pl": "Czy mogę wysłać rzeczy z Polski do Nigerii?"
+      },
+      "answer": {
+        "en": "<p>Yes, we handle shipments in both directions. Contact us for details specific to this route.</p>",
+        "pl": "<p>Tak, obsługujemy wysyłki w obu kierunkach. Skontaktuj się z nami po szczegóły dotyczące tej trasy.</p>"
+      },
+      "published": true,
+      "sortOrder": 61
+    },
+    {
+      "category": "cargo",
+      "question": {
+        "en": "How do I contact FleetFlow Cargo?",
+        "pl": "Jak skontaktować się z FleetFlow Cargo?"
+      },
+      "answer": {
+        "en": "<p>Message us on WhatsApp at +48 516 684 320, or email operations@fleetflowservice.com.</p>",
+        "pl": "<p>Napisz do nas na WhatsAppie: +48 516 684 320 lub e-mailem: operations@fleetflowservice.com.</p>"
+      },
+      "published": true,
+      "sortOrder": 62
+    },
+    {
+      "category": "support",
+      "question": {
+        "en": "How can I contact FleetFlow Service?",
+        "pl": "Jak skontaktować się z FleetFlow Service?"
+      },
+      "answer": {
+        "en": "<p>You can use the contact details published on the FleetFlow website for service enquiries, bookings and driver-related matters: phone and WhatsApp +48 453 505 286, email operations@fleetflowservice.com, or the <a href=\"/en/contact\">contact form</a>.</p>",
+        "pl": "<p>Skorzystaj z danych kontaktowych na naszej stronie w sprawie usług, rezerwacji i pracy kierowcy: telefon i WhatsApp +48 453 505 286, e-mail operations@fleetflowservice.com lub <a href=\"/pl/contact\">formularz kontaktowy</a>.</p>"
+      },
+      "published": true,
+      "sortOrder": 63
+    },
+    {
+      "category": "support",
+      "question": {
+        "en": "How can I check whether a vehicle is currently available?",
+        "pl": "Jak sprawdzić, czy auto jest obecnie dostępne?"
+      },
+      "answer": {
+        "en": "<p>Vehicle availability changes. Check the current <a href=\"/en/fleetflow-service#rental\">rental listing</a> or contact FleetFlow to confirm availability, price and rental conditions before making plans.</p>",
+        "pl": "<p>Dostępność aut się zmienia. Sprawdź aktualną <a href=\"/pl/fleetflow-service#rental\">ofertę wynajmu</a> lub skontaktuj się z FleetFlow, aby potwierdzić dostępność, cenę i warunki najmu.</p>"
+      },
+      "published": true,
+      "sortOrder": 64
+    },
+    {
+      "category": "support",
+      "question": {
+        "en": "How can I apply for a driver or courier opportunity?",
+        "pl": "Jak aplikować na stanowisko kierowcy lub kuriera?"
+      },
+      "answer": {
+        "en": "<p>Visit the <a href=\"/en/careers\">Careers</a> or <a href=\"/en/driver-resources\">Driver Resources</a> section of our website and complete the relevant application form.</p>",
+        "pl": "<p>Odwiedź sekcję <a href=\"/pl/careers\">Kariera</a> lub <a href=\"/pl/driver-resources\">Poradniki dla kierowców</a> i wypełnij odpowiedni formularz.</p>"
+      },
+      "published": true,
+      "sortOrder": 65
+    },
+    {
+      "category": "support",
+      "question": {
+        "en": "Where can I find information about Polish driving licences and taxi requirements?",
+        "pl": "Gdzie znajdę informacje o polskim prawie jazdy i wymaganiach dla taxi?"
+      },
+      "answer": {
+        "en": "<p>Visit the FleetFlow Driver Resources section for practical guides, including:</p><ul><li><a href=\"/en/driver-resources/driving-licence-exchange\">Foreign Driving Licence Exchange in Poland – Step-by-Step Guide</a>.</li><li><a href=\"/en/driver-resources/become-a-taxi-driver\">How to Become a Taxi Driver in Poland – Step-by-Step Guide</a>.</li></ul><p>These guides provide general information. Always check the latest requirements with the competent Polish authority in your place of residence.</p>",
+        "pl": "<p>W sekcji Poradniki dla kierowców FleetFlow znajdziesz praktyczne przewodniki:</p><ul><li><a href=\"/pl/driver-resources/driving-licence-exchange\">Wymiana zagranicznego prawa jazdy w Polsce – krok po kroku</a>.</li><li><a href=\"/pl/driver-resources/become-a-taxi-driver\">Jak zostać kierowcą taxi w Polsce – krok po kroku</a>.</li></ul><p>Przewodniki mają charakter ogólnej informacji. Zawsze sprawdzaj aktualne wymagania we właściwym urzędzie dla miejsca zamieszkania.</p>"
+      },
+      "published": true,
+      "sortOrder": 66
     }
-  ]
+  ],
+  "settings": {
+    "cargoRatePerKg": 50,
+    "cargoMinWeightKg": 1,
+    "cargoEstimatorEnabled": true
+  }
 }

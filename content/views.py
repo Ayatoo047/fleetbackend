@@ -14,7 +14,7 @@ from core.exceptions import Invalid
 from core.utils import flag
 
 from . import serializers as s
-from .models import Article, FleetCar, Service
+from .models import Faq, FleetCar, Service, SiteSettings
 
 
 class ContentCollectionView(APIView):
@@ -88,22 +88,25 @@ class FleetDetailView(ContentDetailView):
     model, to_json, validate = FleetCar, s.car_to_json, s.validate_car
 
 
-class ArticleCollectionView(ContentCollectionView):
-    model, to_json, validate = Article, s.article_to_json, s.validate_article
+class FaqCollectionView(ContentCollectionView):
+    model, to_json, validate = Faq, s.faq_to_json, s.validate_faq
 
 
-class ArticleDetailView(ContentDetailView):
-    model, to_json, validate = Article, s.article_to_json, s.validate_article
+class FaqDetailView(ContentDetailView):
+    model, to_json, validate = Faq, s.faq_to_json, s.validate_faq
 
 
-class ArticleBySlugView(APIView):
-    permission_classes = [AllowAny]
+class SettingsView(APIView):
+    """`GET` (public) and `PUT` (staff) the site settings, such as the cargo estimator's rate."""
 
-    def get(self, request, slug):
-        article = Article.objects.filter(slug=slug, published=True).first()
-        if article is None:
-            raise NotFound()
-        return Response(s.article_to_json(article))
+    def get_permissions(self):
+        return [AllowAny()] if self.request.method == "GET" else [IsAuthenticated()]
+
+    def get(self, request):
+        return Response(s.settings_to_json(SiteSettings.load()))
+
+    def put(self, request):
+        return Response(s.settings_to_json(s.save_settings(s.validate_settings(request.data))))
 
 
 MAX_IMAGE_BYTES = int(3.5 * 1024 * 1024)

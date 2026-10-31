@@ -16,5 +16,13 @@ COUNTRIES = (
 )
 LOCALES = ("pl", "en")
 
-CONTACT_TOPICS = ("general", "booking", "rental", "driver", "partner", "business")
+CONTACT_TOPICS = ("general", "booking", "rental", "driver", "partner", "business", "cargo")
 MESSAGE_STATUSES = ("new", "handled")
+
+# Cargo quote requests and job applications ("leads").
+LEAD_STATUSES = ("new", "in_progress", "closed")
+SHIPPING_DIRECTIONS = ("ng_pl", "pl_ng")
+GOODS_TYPES = ("food", "personal", "documents", "other")
+JOB_ROLES = ("taxi", "courier")
+WORK_STATUSES = ("eu", "permit", "student", "needs_permit")
+AVAILABILITY = ("full_time", "part_time", "weekends")

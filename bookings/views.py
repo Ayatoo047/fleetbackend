@@ -9,13 +9,21 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from core.throttling import BookingThrottle, ContactThrottle
+from core.throttling import BookingThrottle, ContactThrottle, EnquiryThrottle
 from core.utils import flag, iso, now_in_poland, paginate
 
 from . import emails
-from .constants import BOOKING_STATUSES, MESSAGE_STATUSES
-from .models import Booking, ContactMessage
-from .validation import validate_booking, validate_booking_admin_fields, validate_contact, validate_message_update
+from .constants import BOOKING_STATUSES, LEAD_STATUSES, MESSAGE_STATUSES
+from .models import Booking, CargoQuote, ContactMessage, JobApplication
+from .validation import (
+    validate_booking,
+    validate_booking_admin_fields,
+    validate_cargo_quote,
+    validate_contact,
+    validate_job_application,
+    validate_lead_update,
+    validate_message_update,
+)
 
 
 def _address_json(address):
@@ -204,3 +212,109 @@ class ContactMessageDetailView(APIView):
     def delete(self, request, pk):
         ContactMessage.objects.filter(pk=pk).delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def cargo_quote_to_json(q):
+    return {
+        "id": str(q.id),
+        "reference": q.reference,
+        "name": q.name,
+        "whatsapp": q.whatsapp,
+        "email": q.email,
+        "direction": q.direction,
+        "goodsType": q.goods_type,
+        "description": q.description,
+        "weightKg": None if q.weight_kg is None else float(q.weight_kg),
+        "destinationCity": q.destination_city,
+        "notes": q.notes,
+        "locale": q.locale,
+        "status": q.status,
+        "createdAt": iso(q.created_at),
+    }
+
+
+def job_application_to_json(a):
+    return {
+        "id": str(a.id),
+        "role": a.role,
+        "name": a.name,
+        "email": a.email,
+        "phone": a.phone,
+        "city": a.city,
+        "hasLicence": a.has_licence,
+        "workStatus": a.work_status,
+        "availability": a.availability,
+        "message": a.message,
+        "locale": a.locale,
+        "status": a.status,
+        "createdAt": iso(a.created_at),
+    }
+
+
+class LeadCollectionView(APIView):
+    """
+    Public `POST` of an enquiry, and the staff list (`?status=&page=&pageSize=`, newest first).
+    The website emails the team about new enquiries, so the API sends no email for them.
+    """
+
+    model = None
+    to_json = None
+    validate = None
+
+    def get_permissions(self):
+        return [AllowAny()] if self.request.method == "POST" else [IsAuthenticated()]
+
+    def get_throttles(self):
+        return [EnquiryThrottle()] if self.request.method == "POST" else []
+
+    def get(self, request):
+        qs = self.model.objects.order_by("-created_at")
+        status_filter = request.query_params.get("status")
+        if status_filter in LEAD_STATUSES:
+            qs = qs.filter(status=status_filter)
+        return Response(paginate(request, qs, type(self).to_json))
+
+    def post(self, request):
+        lead = self.model.objects.create(**type(self).validate(request.data))
+        return Response(self.created_body(lead), status=status.HTTP_201_CREATED)
+
+    def created_body(self, lead):
+        return {"id": str(lead.id)}
+
+
+class LeadDetailView(APIView):
+    """Staff `PATCH` (`{ status }`) and `DELETE`."""
+
+    model = None
+    to_json = None
+
+    def patch(self, request, pk):
+        lead = self.model.objects.filter(pk=pk).first()
+        if lead is None:
+            raise NotFound()
+        lead.status = validate_lead_update(request.data)
+        lead.save(update_fields=["status"])
+        return Response(type(self).to_json(lead))
+
+    def delete(self, request, pk):
+        self.model.objects.filter(pk=pk).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class CargoQuoteCollectionView(LeadCollectionView):
+    model, to_json, validate = CargoQuote, cargo_quote_to_json, validate_cargo_quote
+
+    def created_body(self, lead):
+        return {"id": str(lead.id), "reference": lead.reference}
+
+
+class CargoQuoteDetailView(LeadDetailView):
+    model, to_json = CargoQuote, cargo_quote_to_json
+
+
+class JobApplicationCollectionView(LeadCollectionView):
+    model, to_json, validate = JobApplication, job_application_to_json, validate_job_application
+
+
+class JobApplicationDetailView(LeadDetailView):
+    model, to_json = JobApplication, job_application_to_json
