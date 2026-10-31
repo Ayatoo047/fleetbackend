@@ -174,10 +174,17 @@ AUTH_TOKEN_TTL_SECONDS = int(env("AUTH_TOKEN_TTL_SECONDS", 8 * 3600))
 # separately. Without it, every visitor shares the Next.js server's limit.
 FRONTEND_API_KEY = env("FRONTEND_API_KEY", "")
 
-# Email. Without EMAIL_HOST, messages are printed to the console.
-EMAIL_BACKEND = (
-    "django.core.mail.backends.smtp.EmailBackend" if env("EMAIL_HOST") else "django.core.mail.backends.console.EmailBackend"
-)
+# Email. The API sends every email the website needs (see bookings/emails.py):
+# - with RESEND_API_KEY, through Resend's HTTP API;
+# - otherwise with EMAIL_HOST, through SMTP;
+# - otherwise they are printed to the console (development).
+RESEND_API_KEY = env("RESEND_API_KEY", "")
+if RESEND_API_KEY:
+    EMAIL_BACKEND = "core.mail.ResendEmailBackend"
+elif env("EMAIL_HOST"):
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 EMAIL_HOST = env("EMAIL_HOST", "localhost")
 EMAIL_PORT = int(env("EMAIL_PORT", 587))
 EMAIL_HOST_USER = env("EMAIL_HOST_USER", "")
@@ -185,16 +192,21 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", "")
 EMAIL_USE_TLS = env_bool("EMAIL_USE_TLS", True)
 EMAIL_USE_SSL = env_bool("EMAIL_USE_SSL", False)
 EMAIL_TIMEOUT = 15
-DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL", "FleetFlow Service <no-reply@fleetflowservice.com>")
+# Must be on a domain verified with your email provider (SPF/DKIM).
+DEFAULT_FROM_EMAIL = env("EMAIL_FROM", "FleetFlow <noreply@fleetflowservice.com>")
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
-# Who is told about new bookings and contact messages (comma-separated).
-STAFF_NOTIFICATION_EMAILS = env_list("STAFF_NOTIFICATION_EMAILS")
-# Send customers a confirmation email for bookings made on the website.
-SEND_CUSTOMER_CONFIRMATION = env_bool("SEND_CUSTOMER_CONFIRMATION", True)
-# Shown in customer emails.
+# Where team notifications go (comma-separated): new bookings, messages, quotes and applications.
+TEAM_EMAILS = env_list("NOTIFY_EMAIL", "operations@fleetflowservice.com")
+# Public URL of the website, for "Open the admin" links in team emails.
+SITE_URL = env("SITE_URL", "https://fleetflowservice.com").rstrip("/")
+# Taxi customers get no email by default: the team confirms each ride personally.
+SEND_BOOKING_CONFIRMATION = env_bool("SEND_BOOKING_CONFIRMATION", False)
 COMPANY_PHONE = env("COMPANY_PHONE", "+48 453 505 286")
 COMPANY_REPLY_TO = env("COMPANY_REPLY_TO", "")
+# FleetFlow Cargo's contact details, shown in the cargo quote confirmation.
+CARGO_WHATSAPP = env("CARGO_WHATSAPP", "+48 516 684 320")
+CARGO_EMAIL = env("CARGO_EMAIL", "operations@fleetflowservice.com")
 
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

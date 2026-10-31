@@ -61,7 +61,8 @@ def service_payload(**overrides):
 
 
 @override_settings(
-    STAFF_NOTIFICATION_EMAILS=["staff@example.com"],
+    TEAM_EMAILS=["team@example.com"],
+    SITE_URL="https://site.example.com",
     FRONTEND_API_KEY="secret",
     PASSWORD_HASHERS=["django.contrib.auth.hashers.MD5PasswordHasher"],
 )
@@ -131,12 +132,23 @@ class BookingTests(ApiTestCase):
         booking = Booking.objects.get(pk=body["id"])
         self.assertEqual(booking.status, "new")
         self.assertEqual(booking.pickup_city, "Kraków")
-        # Staff notification and the Polish customer confirmation.
-        self.assertEqual(len(mail.outbox), 2)
-        self.assertEqual(mail.outbox[0].to, ["staff@example.com"])
-        self.assertEqual(mail.outbox[1].to, ["anna@example.com"])
-        self.assertIn(body["reference"], mail.outbox[1].subject)
-        self.assertIn("Dzień dobry", mail.outbox[1].body)
+        # Only the team is told: the team confirms each ride with the customer personally.
+        self.assertEqual(len(mail.outbox), 1)
+        team = mail.outbox[0]
+        self.assertEqual((team.to, team.reply_to), (["team@example.com"], ["anna@example.com"]))
+        self.assertIn(f"New taxi booking {body['reference']}", team.subject)
+        self.assertIn("Kraków → Balice", team.subject)
+        self.assertIn(f"https://site.example.com/admin/bookings/{booking.id}", team.body)
+        self.assertNotIn("Luggage", team.body, "empty values are left out")
+
+    @override_settings(SEND_BOOKING_CONFIRMATION=True)
+    def test_optional_customer_confirmation(self):
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post("/v1/bookings", booking_payload(), format="json")
+        customer = mail.outbox[1]
+        self.assertEqual(customer.to, ["anna@example.com"])
+        self.assertIn(response.json()["reference"], customer.subject)
+        self.assertIn("Dzień dobry", customer.body)
 
     def test_validation_errors_use_frontend_codes(self):
         payload = booking_payload(
@@ -284,6 +296,7 @@ class ContactMessageTests(ApiTestCase):
             response = self.client.post("/v1/contact-messages", payload, format="json")
         self.assertEqual(response.status_code, 201)
         self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual((mail.outbox[0].subject, mail.outbox[0].reply_to), ("Website message – Cargo & logistics", ["jan@example.com"]))
 
         bad = {**payload, "email": "x", "phone": "abc", "topic": "spam", "message": "y" * 5001}
         self.assertEqual(
@@ -313,11 +326,19 @@ class LeadTests(ApiTestCase):
     }
 
     def test_cargo_quotes(self):
-        response = self.client.post("/v1/cargo-quotes", self.cargo, format="json")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post("/v1/cargo-quotes", self.cargo, format="json")
         self.assertEqual(response.status_code, 201, response.content)
-        self.assertRegex(response.json()["reference"], r"^FC-[2-9A-HJ-NP-Z]{6}$")
+        reference = response.json()["reference"]
+        self.assertRegex(reference, r"^FC-[2-9A-HJ-NP-Z]{6}$")
         self.assertEqual(CargoQuote.objects.get().destination_city, "", "only shipments to Poland keep a city")
-        self.assertEqual(len(mail.outbox), 0, "the website emails the team itself")
+
+        team, customer = mail.outbox
+        self.assertEqual(team.to, ["team@example.com"])
+        self.assertEqual(team.subject, f"Cargo quote request {reference} – Poland → Nigeria")
+        self.assertIn("Estimated weight: 12.5 kg", team.body)
+        self.assertEqual((customer.to, customer.subject), (["ade@example.com"], f"FleetFlow Cargo – we have your request ({reference})"))
+        self.assertIn("+48 516 684 320", customer.body)
 
         bad = {**self.cargo, "whatsapp": "call me", "direction": "", "goodsType": "cars", "weightKg": "heavy", "description": "x" * 1001}
         self.assertEqual(
@@ -336,9 +357,12 @@ class LeadTests(ApiTestCase):
         self.assertEqual(self.client.get("/v1/cargo-quotes").status_code, 401)
 
     def test_job_applications(self):
-        response = self.client.post("/v1/job-applications", self.application, format="json")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post("/v1/job-applications", self.application, format="json")
         self.assertEqual(response.status_code, 201, response.content)
         self.assertEqual(set(response.json()), {"id"})
+        self.assertEqual(mail.outbox[0].subject, "New application – Courier & delivery partner (interest) – Jan")
+        self.assertIn("Category B licence: Yes", mail.outbox[0].body)
 
         bad = {**self.application, "role": "pilot", "hasLicence": "yes", "city": "", "workStatus": None}
         self.assertEqual(
@@ -498,3 +522,21 @@ class SeedTests(TestCase):
         self.assertEqual((Service.objects.count(), FleetCar.objects.count(), Faq.objects.count()), (7, 3, 66))
         self.assertEqual(Service.objects.filter(brand="cargo", coming_soon=True).count(), 2)
         self.assertEqual(float(SiteSettings.load().cargo_rate_per_kg), 50.0)
+
+
+class ResendBackendTests(TestCase):
+    @override_settings(RESEND_API_KEY="re_test", EMAIL_BACKEND="core.mail.ResendEmailBackend")
+    def test_sends_through_the_resend_api(self):
+        import json
+
+        from django.core.mail import EmailMessage
+
+        with mock.patch("urllib.request.urlopen") as urlopen:
+            sent = EmailMessage("Hi", "Body", "FleetFlow <noreply@example.com>", ["a@example.com"], reply_to=["r@example.com"]).send()
+        self.assertEqual(sent, 1)
+        request = urlopen.call_args.args[0]
+        self.assertEqual((request.full_url, request.get_header("Authorization")), ("https://api.resend.com/emails", "Bearer re_test"))
+        self.assertEqual(
+            json.loads(request.data),
+            {"from": "FleetFlow <noreply@example.com>", "to": ["a@example.com"], "reply_to": ["r@example.com"], "subject": "Hi", "text": "Body"},
+        )

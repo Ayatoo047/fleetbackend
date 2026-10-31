@@ -51,7 +51,16 @@ Browser ──► Next.js server (Vercel) ──► this API ──► PostgreSQ
 - **Roles**: `staff` can manage bookings, messages and content; `admin` can also manage users. A staff token on `/users` gets `403`. Admins can't delete themselves or remove their own admin role.
 - **Rate limits**: the booking, contact, cargo quote and job application forms and login are limited per visitor (`THROTTLE_*`). Because all requests come from the frontend server, the frontend forwards the visitor's IP in `X-Visitor-Ip`. The API only trusts it when the request also has the shared secret in `X-Api-Key` (`FRONTEND_API_KEY`). Requests with an admin token, such as phone bookings entered by staff, are never limited.
 - **Validation** mirrors the frontend's Zod schemas and returns `422` with `{ "errors": { "pickup.city": "required", … } }`, using the codes listed in `API.md`. The website can't book a time in the past, but staff can, to log rides after the fact.
-- **Emails**: the website itself emails the team about every booking, contact message, cargo quote and job application (through Resend), and sends cargo customers their confirmation. The API only adds what the website doesn't send: the **customer's booking confirmation**, in the language they booked in (Polish or English). Bookings entered by staff send no emails. Leave `STAFF_NOTIFICATION_EMAILS` empty, or the team gets each booking and contact message twice. A failed email is logged, and the booking is still saved.
+- **Emails**: the API sends all of the website's emails, after the data is saved. A failed email is logged, and the enquiry is still saved. Team emails go to `NOTIFY_EMAIL`, with reply-to set to the customer, and link to the admin page (`SITE_URL`).
+
+  | Form | Team email | Customer email |
+  | --- | --- | --- |
+  | Taxi booking | yes | off by default: the team confirms each ride personally (`SEND_BOOKING_CONFIRMATION=true` sends one in Polish or English) |
+  | Contact message | yes | – |
+  | Cargo quote | yes | yes, with the reference, in Polish or English |
+  | Job application | yes | – |
+
+  Bookings entered by staff in the admin send no emails. With `RESEND_API_KEY`, emails go through Resend's HTTP API, which works on hosts that block outgoing SMTP; otherwise set the SMTP settings (`EMAIL_HOST` …). The `EMAIL_FROM` domain must be verified with the provider.
 - **Rich text** (service descriptions, FAQ answers) is sanitised again on save, allowing only the tags the admin editor produces.
 - **Uploads**: images (JPEG, PNG, WebP, AVIF, GIF, up to 3.5 MB) are checked by their content, not their file name, and stored under random names. They are saved on local disk and served at `/media/…`, or in S3-compatible storage if `S3_BUCKET` is set.
 - **Django admin** at `/django-admin/` gives superusers direct access to all data. Day-to-day work happens in the website's own admin panel.
@@ -96,7 +105,7 @@ Any host that runs a Docker image or a Python web app works (Railway, Render, Fl
 1. Create a PostgreSQL database and set `DATABASE_URL`.
 2. Set `SECRET_KEY` (a long random string), `ALLOWED_HOSTS` (e.g. `api.fleetflowservice.com`), `CSRF_TRUSTED_ORIGINS` (e.g. `https://api.fleetflowservice.com`) and `PUBLIC_BASE_URL`.
 3. Set `FRONTEND_API_KEY`, and the same value as `API_KEY` in the frontend's Vercel settings.
-4. Set the email settings, so customers get their booking confirmation. The website emails the team itself, so leave `STAFF_NOTIFICATION_EMAILS` empty.
+4. Set up email: `RESEND_API_KEY` (or SMTP settings), `EMAIL_FROM` on a verified domain, `NOTIFY_EMAIL` and `SITE_URL`.
 5. For uploaded images, use S3-compatible storage (`S3_BUCKET`, plus `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`), or give the container a persistent volume at `/app/media`. Most platforms wipe the container's disk on each deploy.
 6. With more than one Gunicorn worker, set `REDIS_URL` so rate limits are counted across workers.
 7. After the first deploy, run `python manage.py seed_content` and `python manage.py createsuperuser`.

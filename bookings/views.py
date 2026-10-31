@@ -254,12 +254,12 @@ def job_application_to_json(a):
 class LeadCollectionView(APIView):
     """
     Public `POST` of an enquiry, and the staff list (`?status=&page=&pageSize=`, newest first).
-    The website emails the team about new enquiries, so the API sends no email for them.
     """
 
     model = None
     to_json = None
     validate = None
+    send_emails = None
 
     def get_permissions(self):
         return [AllowAny()] if self.request.method == "POST" else [IsAuthenticated()]
@@ -275,7 +275,9 @@ class LeadCollectionView(APIView):
         return Response(paginate(request, qs, type(self).to_json))
 
     def post(self, request):
-        lead = self.model.objects.create(**type(self).validate(request.data))
+        with transaction.atomic():
+            lead = self.model.objects.create(**type(self).validate(request.data))
+            transaction.on_commit(partial(type(self).send_emails, lead))
         return Response(self.created_body(lead), status=status.HTTP_201_CREATED)
 
     def created_body(self, lead):
@@ -303,6 +305,7 @@ class LeadDetailView(APIView):
 
 class CargoQuoteCollectionView(LeadCollectionView):
     model, to_json, validate = CargoQuote, cargo_quote_to_json, validate_cargo_quote
+    send_emails = emails.send_cargo_quote_emails
 
     def created_body(self, lead):
         return {"id": str(lead.id), "reference": lead.reference}
@@ -314,6 +317,7 @@ class CargoQuoteDetailView(LeadDetailView):
 
 class JobApplicationCollectionView(LeadCollectionView):
     model, to_json, validate = JobApplication, job_application_to_json, validate_job_application
+    send_emails = emails.send_job_application_notification
 
 
 class JobApplicationDetailView(LeadDetailView):
