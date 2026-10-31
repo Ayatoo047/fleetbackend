@@ -1,0 +1,10 @@
+Django>=5.2,<5.3
+djangorestframework>=3.16,<3.17
+dj-database-url>=3.0
+psycopg[binary]>=3.2
+nh3>=0.2.20
+whitenoise>=6.9
+gunicorn>=23
+python-dotenv>=1.1
+redis>=5.2
+django-storages[s3]>=1.14

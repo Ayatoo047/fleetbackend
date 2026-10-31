@@ -1,0 +1,29 @@
+# Local stack: the API on http://localhost:8000/v1 with PostgreSQL.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: fleetflow
+      POSTGRES_USER: fleetflow
+      POSTGRES_PASSWORD: fleetflow
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "true"
+      ALLOWED_HOSTS: "localhost,127.0.0.1,api"
+      DATABASE_URL: postgres://fleetflow:fleetflow@db:5432/fleetflow
+      PUBLIC_BASE_URL: http://localhost:8000
+      FRONTEND_API_KEY: local-dev-key
+    volumes:
+      - media:/app/media
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+  media:
