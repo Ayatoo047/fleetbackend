@@ -60,7 +60,7 @@ Browser ──► Next.js server (Vercel) ──► this API ──► PostgreSQ
   | Cargo quote | yes | yes, with the reference, in Polish or English |
   | Job application | yes | – |
 
-  Bookings entered by staff in the admin send no emails. With `RESEND_API_KEY`, emails go through Resend's HTTP API, which works on hosts that block outgoing SMTP; otherwise set the SMTP settings (`EMAIL_HOST` …). The `EMAIL_FROM` domain must be verified with the provider.
+  Bookings entered by staff in the admin send no emails. With `ZEPTOMAIL_TOKEN`, emails go through [ZeptoMail](https://www.zoho.com/zeptomail/)'s API, which works on hosts that block outgoing SMTP; set `ZEPTOMAIL_API_HOST` to your account's data centre (`api.zeptomail.eu` by default; `api.zeptomail.com` for US accounts). Otherwise set the SMTP settings (`EMAIL_HOST` …). The `EMAIL_FROM` domain must be verified in ZeptoMail (its SPF and DKIM records).
 - **Rich text** (service descriptions, FAQ answers) is sanitised again on save, allowing only the tags the admin editor produces.
 - **Uploads**: images (JPEG, PNG, WebP, AVIF, GIF, up to 3.5 MB) are checked by their content, not their file name, and stored under random names. They are saved on local disk and served at `/media/…`, or in S3-compatible storage if `S3_BUCKET` is set.
 - **Django admin** at `/django-admin/` gives superusers direct access to all data. Day-to-day work happens in the website's own admin panel.
@@ -105,7 +105,7 @@ Any host that runs a Docker image or a Python web app works (Railway, Render, Fl
 1. Create a PostgreSQL database and set `DATABASE_URL`.
 2. Set `SECRET_KEY` (a long random string), `ALLOWED_HOSTS` (e.g. `api.fleetflowservice.com`), `CSRF_TRUSTED_ORIGINS` (e.g. `https://api.fleetflowservice.com`) and `PUBLIC_BASE_URL`.
 3. Set `FRONTEND_API_KEY`, and the same value as `API_KEY` in the frontend's Vercel settings.
-4. Set up email: `RESEND_API_KEY` (or SMTP settings), `EMAIL_FROM` on a verified domain, `NOTIFY_EMAIL` and `SITE_URL`.
+4. Set up email: in ZeptoMail, verify the sending domain and copy the Mail Agent's Send Mail Token into `ZEPTOMAIL_TOKEN` (and `ZEPTOMAIL_API_HOST` if the account isn't in the EU data centre). Then set `EMAIL_FROM` on that domain, `NOTIFY_EMAIL` and `SITE_URL`.
 5. For uploaded images, use S3-compatible storage (`S3_BUCKET`, plus `AWS_ACCESS_KEY_ID` / `AWS_SECRET_ACCESS_KEY`), or give the container a persistent volume at `/app/media`. Most platforms wipe the container's disk on each deploy.
 6. With more than one Gunicorn worker, set `REDIS_URL` so rate limits are counted across workers.
 7. After the first deploy, run `python manage.py seed_content` and `python manage.py createsuperuser`.

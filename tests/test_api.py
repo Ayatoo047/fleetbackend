@@ -524,19 +524,38 @@ class SeedTests(TestCase):
         self.assertEqual(float(SiteSettings.load().cargo_rate_per_kg), 50.0)
 
 
-class ResendBackendTests(TestCase):
-    @override_settings(RESEND_API_KEY="re_test", EMAIL_BACKEND="core.mail.ResendEmailBackend")
-    def test_sends_through_the_resend_api(self):
+class ZeptoMailBackendTests(TestCase):
+    @override_settings(
+        ZEPTOMAIL_TOKEN="secret-token", ZEPTOMAIL_API_HOST="api.zeptomail.eu", EMAIL_BACKEND="core.mail.ZeptoMailEmailBackend"
+    )
+    def test_sends_through_the_zeptomail_api(self):
         import json
 
         from django.core.mail import EmailMessage
 
         with mock.patch("urllib.request.urlopen") as urlopen:
-            sent = EmailMessage("Hi", "Body", "FleetFlow <noreply@example.com>", ["a@example.com"], reply_to=["r@example.com"]).send()
+            sent = EmailMessage(
+                "Hi", "Body", "FleetFlow <noreply@example.com>", ["a@example.com"], reply_to=["r@example.com"]
+            ).send()
         self.assertEqual(sent, 1)
         request = urlopen.call_args.args[0]
-        self.assertEqual((request.full_url, request.get_header("Authorization")), ("https://api.resend.com/emails", "Bearer re_test"))
+        self.assertEqual(request.full_url, "https://api.zeptomail.eu/v1.1/email")
+        self.assertEqual(request.get_header("Authorization"), "Zoho-enczapikey secret-token")
         self.assertEqual(
             json.loads(request.data),
-            {"from": "FleetFlow <noreply@example.com>", "to": ["a@example.com"], "reply_to": ["r@example.com"], "subject": "Hi", "text": "Body"},
+            {
+                "from": {"address": "noreply@example.com", "name": "FleetFlow"},
+                "to": [{"email_address": {"address": "a@example.com"}}],
+                "reply_to": [{"address": "r@example.com"}],
+                "subject": "Hi",
+                "textbody": "Body",
+            },
         )
+
+    @override_settings(ZEPTOMAIL_TOKEN="Zoho-enczapikey secret-token", EMAIL_BACKEND="core.mail.ZeptoMailEmailBackend")
+    def test_token_copied_with_its_prefix(self):
+        from django.core.mail import send_mail
+
+        with mock.patch("urllib.request.urlopen") as urlopen:
+            send_mail("Hi", "Body", "noreply@example.com", ["a@example.com"])
+        self.assertEqual(urlopen.call_args.args[0].get_header("Authorization"), "Zoho-enczapikey secret-token")
