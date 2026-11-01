@@ -175,12 +175,15 @@ AUTH_TOKEN_TTL_SECONDS = int(env("AUTH_TOKEN_TTL_SECONDS", 8 * 3600))
 FRONTEND_API_KEY = env("FRONTEND_API_KEY", "")
 
 # Email. The API sends every email the website needs (see bookings/emails.py):
-# - with RESEND_API_KEY, through Resend's HTTP API;
+# - with ZEPTOMAIL_TOKEN, through ZeptoMail's API (https://www.zoho.com/zeptomail/);
 # - otherwise with EMAIL_HOST, through SMTP;
 # - otherwise they are printed to the console (development).
-RESEND_API_KEY = env("RESEND_API_KEY", "")
-if RESEND_API_KEY:
-    EMAIL_BACKEND = "core.mail.ResendEmailBackend"
+# The "Send Mail Token" from ZeptoMail's dashboard (Mail Agents → SMTP/API).
+ZEPTOMAIL_TOKEN = env("ZEPTOMAIL_TOKEN", "")
+# API host of the account's data centre: api.zeptomail.com (US), api.zeptomail.eu, api.zeptomail.in, …
+ZEPTOMAIL_API_HOST = env("ZEPTOMAIL_API_HOST", "api.zeptomail.eu")
+if ZEPTOMAIL_TOKEN:
+    EMAIL_BACKEND = "core.mail.ZeptoMailEmailBackend"
 elif env("EMAIL_HOST"):
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 else:

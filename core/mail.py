@@ -1,6 +1,7 @@
 import json
 import logging
 import urllib.request
+from email.utils import parseaddr
 
 from django.conf import settings
 from django.core.mail.backends.base import BaseEmailBackend
@@ -8,34 +9,42 @@ from django.core.mail.backends.base import BaseEmailBackend
 logger = logging.getLogger(__name__)
 
 
-class ResendEmailBackend(BaseEmailBackend):
-    """
-    Sends plain-text email through Resend's HTTP API (https://resend.com/docs/api-reference/emails/send-email).
-    Used when RESEND_API_KEY is set. HTTPS works on hosts that block outgoing SMTP ports.
-    """
+def _address(value):
+    """`"Name <a@example.com>"` or `"a@example.com"` → ZeptoMail's `{ address, name }`."""
+    name, address = parseaddr(value)
+    return {"address": address, "name": name} if name else {"address": address}
 
-    url = "https://api.resend.com/emails"
+
+def _recipients(values):
+    return [{"email_address": _address(value)} for value in values]
+
+
+class ZeptoMailEmailBackend(BaseEmailBackend):
+    """
+    Sends plain-text email through ZeptoMail's API (`POST /v1.1/email`). Used when ZEPTOMAIL_TOKEN is set.
+    HTTPS works on hosts that block outgoing SMTP ports.
+    """
 
     def send_messages(self, email_messages):
+        token = settings.ZEPTOMAIL_TOKEN
+        # The dashboard shows the token with its scheme ("Zoho-enczapikey …"); accept it with or without.
+        if not token.startswith("Zoho-enczapikey "):
+            token = f"Zoho-enczapikey {token}"
         sent = 0
         for message in email_messages:
             payload = {
-                "from": message.from_email,
-                "to": message.to,
-                "cc": message.cc,
-                "bcc": message.bcc,
-                "reply_to": message.reply_to,
+                "from": _address(message.from_email),
+                "to": _recipients(message.to),
+                "cc": _recipients(message.cc),
+                "bcc": _recipients(message.bcc),
+                "reply_to": [_address(value) for value in message.reply_to],
                 "subject": message.subject,
-                "text": message.body,
+                "textbody": message.body,
             }
             request = urllib.request.Request(
-                self.url,
+                f"https://{settings.ZEPTOMAIL_API_HOST}/v1.1/email",
                 data=json.dumps({k: v for k, v in payload.items() if v}).encode(),
-                headers={
-                    "Authorization": f"Bearer {settings.RESEND_API_KEY}",
-                    "Content-Type": "application/json",
-                    "User-Agent": "fleetflow-backend",
-                },
+                headers={"Authorization": token, "Content-Type": "application/json", "Accept": "application/json"},
                 method="POST",
             )
             try:
@@ -44,5 +53,5 @@ class ResendEmailBackend(BaseEmailBackend):
             except Exception:
                 if not self.fail_silently:
                     raise
-                logger.exception("Resend could not send %r", message.subject)
+                logger.exception("ZeptoMail could not send %r", message.subject)
         return sent
