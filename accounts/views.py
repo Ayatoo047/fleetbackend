@@ -4,7 +4,7 @@ from django.db import transaction
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -55,6 +55,53 @@ class LoginView(APIView):
         )
 
 
+MIN_PASSWORD_LENGTH = 10
+
+
+def password_error(password):
+    """The error code for an unacceptable new password, or None."""
+    if not isinstance(password, str) or not password:
+        return "required"
+    if len(password) > 200:
+        return "tooLong"
+    if len(password) < MIN_PASSWORD_LENGTH:
+        return "tooShort"
+    return None
+
+
+class ChangePasswordView(APIView):
+    """
+    `POST /auth/change-password`: the signed-in user changes their own password.
+
+    Body `{ currentPassword, newPassword }`. Any role may call it. On success every other
+    session of the user is signed out; the session that made the change stays signed in.
+    """
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        data = request.data if isinstance(request.data, dict) else {}
+        current, new = data.get("currentPassword"), data.get("newPassword")
+        errors = {}
+        if not isinstance(current, str) or not current:
+            errors["currentPassword"] = "required"
+        elif not request.user.check_password(current):
+            errors["currentPassword"] = "wrongPassword"
+        if code := password_error(new):
+            errors["newPassword"] = code
+        elif isinstance(current, str) and new == current:
+            errors["newPassword"] = "samePassword"
+        if errors:
+            raise Invalid(errors)
+
+        user = request.user
+        with transaction.atomic():
+            user.set_password(new)
+            user.save(update_fields=["password"])
+            user.auth_tokens.exclude(pk=getattr(request.auth, "pk", None)).delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 def validate_user(data, instance=None):
     """Body of `POST /users` and `PATCH /users/:id`. On PATCH, missing fields keep their value."""
     check = v.Checker(data)
@@ -72,10 +119,10 @@ def validate_user(data, instance=None):
     if password in (v.MISSING, None, "") and instance is None:
         check.fail("password", "required")
     elif password not in (v.MISSING, None, ""):
-        if not isinstance(password, str) or len(password) > 200:
+        if not isinstance(password, str):
             check.fail("password", "invalid")
-        elif len(password) < 10:
-            check.fail("password", "tooShort")
+        elif code := password_error(password):
+            check.fail("password", code)
         else:
             cleaned["password"] = password
 

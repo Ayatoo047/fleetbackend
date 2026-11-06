@@ -14,7 +14,7 @@ from core.exceptions import Invalid
 from core.utils import flag
 
 from . import serializers as s
-from .models import Faq, FleetCar, Service, SiteSettings
+from .models import Article, DayTrip, Faq, FleetCar, Service, SiteSettings
 
 
 class ContentCollectionView(APIView):
@@ -86,6 +86,34 @@ class FleetCollectionView(ContentCollectionView):
 
 class FleetDetailView(ContentDetailView):
     model, to_json, validate = FleetCar, s.car_to_json, s.validate_car
+
+
+class ArticleCollectionView(ContentCollectionView):
+    model, to_json, validate = Article, s.article_to_json, s.validate_article
+
+
+class ArticleDetailView(ContentDetailView):
+    model, to_json, validate = Article, s.article_to_json, s.validate_article
+
+
+class ArticleBySlugView(APIView):
+    """`GET /articles/by-slug/:slug`: one published article for the News page."""
+
+    permission_classes = [AllowAny]
+
+    def get(self, request, slug):
+        article = Article.objects.filter(slug=slug.lower(), published=True).first()
+        if article is None:
+            raise NotFound()
+        return Response(s.article_to_json(article))
+
+
+class DayTripCollectionView(ContentCollectionView):
+    model, to_json, validate = DayTrip, s.day_trip_to_json, s.validate_day_trip
+
+
+class DayTripDetailView(ContentDetailView):
+    model, to_json, validate = DayTrip, s.day_trip_to_json, s.validate_day_trip
 
 
 class FaqCollectionView(ContentCollectionView):

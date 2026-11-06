@@ -36,7 +36,7 @@
         "en": "<p>FleetFlow Service leverages cutting-edge AI technology to optimise routes, ensuring the fastest, most cost-efficient travel across Poland. Our AI system analyses real-time traffic, weather and other variables to create the most effective delivery or transport routes, minimising delays and fuel costs.</p><p>Whether you're managing a fleet or need individual travel, our solution helps improve efficiency, reduce operational costs and enhance delivery speed. Streamline your logistics with our smart, data-driven route optimisation service.</p>"
       },
       "image": "/images/hero-car.webp",
-      "published": true,
+      "published": false,
       "comingSoon": false,
       "sortOrder": 2
     },
@@ -146,7 +146,11 @@
       "name": "Toyota Prius III",
       "year": 2011,
       "pricePerWeek": 600,
-      "image": "",
+      "image": "/images/fleet/prius-2011-front-right.webp",
+      "gallery": [
+        "/images/fleet/prius-2011-front-left.webp",
+        "/images/fleet/prius-2011-front.webp"
+      ],
       "color": "#c8102e",
       "fuel": {
         "pl": "Hybryda + LPG",
@@ -181,7 +185,8 @@
       "name": "Toyota Corolla",
       "year": 2007,
       "pricePerWeek": 500,
-      "image": "",
+      "image": "/images/fleet/corolla-2007-side.webp",
+      "gallery": [],
       "color": "#a7adb4",
       "fuel": {
         "pl": "Benzyna + LPG",
@@ -215,8 +220,12 @@
     {
       "name": "Toyota Corolla Comfort",
       "year": 2021,
-      "pricePerWeek": 900,
-      "image": "",
+      "pricePerWeek": 800,
+      "image": "/images/fleet/corolla-2021-front-right.webp",
+      "gallery": [
+        "/images/fleet/corolla-2021-front.webp",
+        "/images/fleet/corolla-2021-front-left.webp"
+      ],
       "color": "#b3121f",
       "fuel": {
         "pl": "Hybryda + LPG",
@@ -248,6 +257,208 @@
       },
       "published": true,
       "sortOrder": 3
+    }
+  ],
+  "articles": [
+    {
+      "slug": "psychotechnical-tests",
+      "title": {
+        "pl": "Badania psychotechniczne – czym są i na czym polegają?",
+        "en": "Psychotechnical tests – what are they and what do they involve?"
+      },
+      "summary": {
+        "pl": "Każdy zawodowy kierowca w Polsce musi przejść badania psychotechniczne. Wyjaśniamy, co sprawdzają, jak wyglądają i kiedy trzeba je wykonać.",
+        "en": "Every professional driver in Poland has to pass psychotechnical tests. Here is what they check, how they work and when you need to take them."
+      },
+      "body": {
+        "pl": "<h2>Czym są badania psychotechniczne?</h2><p>Badania psychotechniczne (psychotesty) to kluczowy element oceny predyspozycji przyszłych kierowców taxi. Sprawdzają nie tylko zdolności poznawcze i psychomotoryczne, ale też umiejętność radzenia sobie w sytuacjach zawodowych, takich jak wielogodzinna jazda w korkach czy kontakt z pasażerami. Odpowiednie przygotowanie i regularne badania są niezbędne dla bezpieczeństwa kierowcy i pasażerów.</p><h2>Na czym polegają badania psychotechniczne?</h2><p>W badaniach psychotechnicznych stosuje się różne metody, m.in.:</p><ul><li><strong>Wywiad psychologiczny</strong> – pozwala poznać historię emocjonalną i psychologiczną kandydata.</li><li><strong>Testy pisemne</strong> – oceniają zdolności poznawcze i procesy intelektualne.</li><li><strong>Testy aparaturowe</strong> – sprawdzają sprawność psychomotoryczną, np. koordynację wzrokowo-ruchową i czas reakcji.</li></ul><p>Łącznie dają one pełny obraz profilu psychologicznego i emocjonalnego badanej osoby. Badania oceniają nie tylko, jak ktoś radzi sobie w trudnych warunkach pracy, ale też jego dojrzałość społeczną i emocjonalną – co jest szczególnie ważne w zawodach wymagających dużej sprawności psychomotorycznej.</p><h2>Kto i kiedy powinien wykonać psychotesty?</h2><p>Psychotesty musi przejść każdy, kto chce zawodowo prowadzić pojazdy. Badania wykonuje się w ośrodku medycznym z odpowiednim wyposażeniem. Pierwsze badanie trzeba przejść przed uzyskaniem kwalifikacji zawodowych, a kolejne – w ramach szkoleń okresowych. Zawodowi kierowcy powtarzają badania psychotechniczne co 5 lat do ukończenia 60. roku życia, a później co 30 miesięcy.</p><h2>Badania psychotechniczne a psychologiczne</h2><p>Badania psychotechniczne i psychologiczne bywają mylone, ale służą innym celom:</p><ul><li><strong>Badania psychologiczne</strong> – dotyczą ogólnego stanu psychicznego i samopoczucia.</li><li><strong>Badania psychotechniczne</strong> – oceniają zdolność do wykonywania konkretnych zadań zawodowych.</li></ul><p>Krótko mówiąc, badania psychotechniczne mają charakter praktyczny – sprawdzają, czy ktoś ma umiejętności potrzebne w zawodach wymagających precyzji psychomotorycznej i bezpieczeństwa. Badania psychologiczne są szersze i obejmują wiele aspektów zdrowia psychicznego i stanu emocjonalnego.</p>",
+        "en": "<h2>What are psychotechnical tests?</h2><p>Psychotechnical tests (or psychotests) are an essential part of evaluating the suitability of future taxi drivers. They assess not only cognitive and psychomotor skills but also the ability to handle professional situations, such as long hours of driving in traffic or interacting with passengers. Proper preparation and regular testing are crucial for the safety of both the driver and passengers.</p><h2>What do psychotechnical tests involve?</h2><p>Psychotechnical tests use a variety of methods, including:</p><ul><li><strong>Psychological interview</strong> – provides insight into the candidate's emotional and psychological history.</li><li><strong>Written tests</strong> – assess cognitive abilities and intellectual processes.</li><li><strong>Apparatus tests</strong> – focus on psychomotor skills, such as visual-motor coordination and reaction time.</li></ul><p>Together, these techniques give a comprehensive picture of a person's psychological and emotional profile. The tests evaluate not only how well someone can work in challenging conditions, but also their social and emotional maturity – which is particularly important in professions where psychomotor efficiency is essential.</p><h2>Who should take psychotests, and when?</h2><p>Anyone intending to drive professionally must undergo psychotests. The tests are conducted at a medical centre with the necessary equipment. The first test must be completed before obtaining professional qualifications, with further tests during periodic training. Professional drivers must repeat the psychotechnical tests every 5 years until they turn 60, and every 30 months after that.</p><h2>Psychotechnical vs psychological tests</h2><p>Psychotechnical and psychological tests are often confused, but they serve different purposes:</p><ul><li><strong>Psychological tests</strong> – focus on a person's overall mental state and well-being.</li><li><strong>Psychotechnical tests</strong> – assess the ability to perform specific professional tasks.</li></ul><p>In short, psychotechnical tests are practical: they check whether someone has the skills needed for professions that demand psychomotor precision and safety. Psychological tests are broader and cover many aspects of mental health and emotional state.</p>"
+      },
+      "coverImage": "",
+      "published": true,
+      "publishedAt": "2025-02-18"
+    }
+  ],
+  "dayTrips": [
+    {
+      "slug": "wieliczka",
+      "name": {
+        "pl": "Kopalnia Soli „Wieliczka”",
+        "en": "Wieliczka Salt Mine"
+      },
+      "text": {
+        "pl": "Obiekt z listy UNESCO: wielowiekowe podziemne komory, jeziora i kaplice wykute w soli.",
+        "en": "A UNESCO World Heritage site: centuries-old underground chambers, lakes and chapels carved entirely out of salt."
+      },
+      "distance": {
+        "pl": "ok. 15 km",
+        "en": "about 15 km"
+      },
+      "duration": {
+        "pl": "3–4 godziny",
+        "en": "3–4 hours"
+      },
+      "photo": "/images/day-trips/wieliczka.webp",
+      "photoAlt": {
+        "pl": "Kaplica św. Kingi wykuta w soli, z żyrandolami",
+        "en": "St Kinga's Chapel, carved from salt, with its chandeliers"
+      },
+      "photoCredit": {
+        "author": "Arian Zwegers",
+        "license": "CC BY 2.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Wieliczka,_St_Kingas_Chapel_(6467348331).jpg"
+      },
+      "destination": {
+        "street": "Kopalnia Soli Wieliczka, Daniłowicza 10",
+        "city": "Wieliczka",
+        "postalCode": "32-020"
+      },
+      "published": true,
+      "sortOrder": 1
+    },
+    {
+      "slug": "auschwitz",
+      "name": {
+        "pl": "Miejsce Pamięci i Muzeum Auschwitz-Birkenau",
+        "en": "Auschwitz-Birkenau Memorial and Museum"
+      },
+      "text": {
+        "pl": "Były niemiecki nazistowski obóz koncentracyjny i zagłady, dziś miejsce pamięci i muzeum. Wejście wymaga rezerwacji – najpierw zarezerwuj godzinę zwiedzania.",
+        "en": "The former German Nazi concentration and extermination camp, now a memorial and museum. Entry is by reservation, so book your visit time first."
+      },
+      "distance": {
+        "pl": "ok. 70 km",
+        "en": "about 70 km"
+      },
+      "duration": {
+        "pl": "4–5 godzin",
+        "en": "4–5 hours"
+      },
+      "photo": "/images/day-trips/auschwitz.webp",
+      "photoAlt": {
+        "pl": "Tory kolejowe prowadzące do głównej bramy Auschwitz II-Birkenau",
+        "en": "The railway track leading to the main gate of Auschwitz II-Birkenau"
+      },
+      "photoCredit": {
+        "author": "Martyna Zambrzycka",
+        "license": "Public domain",
+        "source": "https://commons.wikimedia.org/wiki/File:Main_gate_Auschwitz_II_Birkenau.jpg"
+      },
+      "destination": {
+        "street": "Muzeum Auschwitz-Birkenau, Więźniów Oświęcimia 20",
+        "city": "Oświęcim",
+        "postalCode": "32-603"
+      },
+      "published": true,
+      "sortOrder": 2
+    },
+    {
+      "slug": "ojcow",
+      "name": {
+        "pl": "Ojcowski Park Narodowy",
+        "en": "Ojców National Park"
+      },
+      "text": {
+        "pl": "Wapienne doliny, jaskinie, Maczuga Herkulesa oraz zamki w Ojcowie i Pieskowej Skale – łatwe spacery niedaleko miasta.",
+        "en": "Limestone valleys, caves, the Hercules' Club rock and the castles of Ojców and Pieskowa Skała – easy walks close to the city."
+      },
+      "distance": {
+        "pl": "ok. 25 km",
+        "en": "about 25 km"
+      },
+      "duration": {
+        "pl": "3–5 godzin",
+        "en": "3–5 hours"
+      },
+      "photo": "/images/day-trips/ojcow.webp",
+      "photoAlt": {
+        "pl": "Zamek Pieskowa Skała na wapiennym wzgórzu",
+        "en": "Pieskowa Skała castle on a limestone hill"
+      },
+      "photoCredit": {
+        "author": "MichalPL",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Pieskowa_Ska%C5%82a_castle,_October_2020.jpg"
+      },
+      "destination": {
+        "street": "Ojcowski Park Narodowy",
+        "city": "Ojców",
+        "postalCode": ""
+      },
+      "published": true,
+      "sortOrder": 3
+    },
+    {
+      "slug": "zakopane",
+      "name": {
+        "pl": "Zakopane i Tatry",
+        "en": "Zakopane & the Tatra Mountains"
+      },
+      "text": {
+        "pl": "Zimowa stolica Polski u stóp Tatr: Krupówki, Gubałówka oraz górskie szlaki i widoki.",
+        "en": "Poland's winter capital at the foot of the Tatras: Krupówki street, Gubałówka hill and mountain trails and views."
+      },
+      "distance": {
+        "pl": "ok. 110 km",
+        "en": "about 110 km"
+      },
+      "duration": {
+        "pl": "Cały dzień",
+        "en": "Full day"
+      },
+      "photo": "/images/day-trips/zakopane.webp",
+      "photoAlt": {
+        "pl": "Tatry i Giewont widziane z Zakopanego",
+        "en": "The Tatra Mountains and Giewont seen from Zakopane"
+      },
+      "photoCredit": {
+        "author": "Janusz Maniak",
+        "license": "CC0",
+        "source": "https://commons.wikimedia.org/wiki/File:Giewont,_Zakopane,_Poland_(Unsplash).jpg"
+      },
+      "destination": {
+        "street": "Krupówki",
+        "city": "Zakopane",
+        "postalCode": "34-500"
+      },
+      "published": true,
+      "sortOrder": 4
+    },
+    {
+      "slug": "energylandia",
+      "name": {
+        "pl": "Energylandia – Zator",
+        "en": "Energylandia – Zator"
+      },
+      "text": {
+        "pl": "Jeden z największych parków rozrywki w Europie – rollercoastery, atrakcje wodne i strefy dla rodzin.",
+        "en": "One of Europe's largest amusement parks, with roller coasters, water rides and family attractions."
+      },
+      "distance": {
+        "pl": "ok. 50 km",
+        "en": "about 50 km"
+      },
+      "duration": {
+        "pl": "Cały dzień",
+        "en": "Full day"
+      },
+      "photo": "/images/day-trips/energylandia.webp",
+      "photoAlt": {
+        "pl": "Budynek wejściowy Energylandii",
+        "en": "The entrance building of Energylandia"
+      },
+      "photoCredit": {
+        "author": "Tom_a",
+        "license": "CC BY-SA 4.0",
+        "source": "https://commons.wikimedia.org/wiki/File:Energylandia_-_Entrance_(2018).jpg"
+      },
+      "destination": {
+        "street": "Energylandia, Szkolna 25",
+        "city": "Zator",
+        "postalCode": "32-640"
+      },
+      "published": true,
+      "sortOrder": 5
     }
   ],
   "faqs": [
@@ -947,8 +1158,8 @@
         "pl": "Jakie rzeczy są zakazane lub objęte ograniczeniami?"
       },
       "answer": {
-        "en": "<p>Alcohol, ponmo (cow skin), dry snail and other restricted items cannot be accepted. If you’re unsure whether a specific item can be shipped, please contact us before sending it so we can confirm.</p>",
-        "pl": "<p>Nie przyjmujemy alkoholu, ponmo (skóry wołowej), suszonych ślimaków ani innych rzeczy objętych ograniczeniami. Jeśli nie masz pewności, czy dany przedmiot można wysłać, skontaktuj się z nami przed wysyłką.</p>"
+        "en": "<p>Alcohol, ponmo (cow skin), dry snail and other restricted items cannot be accepted. Proteins, laptops and phones are prohibited via air cargo because of the battery. If you’re unsure whether a specific item can be shipped, please contact us before sending it so we can confirm.</p>",
+        "pl": "<p>Nie przyjmujemy alkoholu, ponmo (skóry wołowej), suszonych ślimaków ani innych rzeczy objętych ograniczeniami. Produktów białkowych, laptopów i telefonów nie można wysyłać cargo lotniczym ze względu na baterie. Jeśli nie masz pewności, czy dany przedmiot można wysłać, skontaktuj się z nami przed wysyłką.</p>"
       },
       "published": true,
       "sortOrder": 54
@@ -1113,6 +1324,19 @@
   "settings": {
     "cargoRatePerKg": 50,
     "cargoMinWeightKg": 1,
-    "cargoEstimatorEnabled": true
+    "cargoEstimatorEnabled": true,
+    "rentalPromoEnabled": true,
+    "rentalFirstWeekDiscountPercent": 35,
+    "contactPhone": "+48 453 505 286",
+    "contactEmail": "operations@fleetflowservice.com",
+    "contactWhatsapp": "",
+    "cargoWhatsapp": "+48 516 684 320",
+    "cargoEmail": "operations@fleetflowservice.com",
+    "bannerEnabled": false,
+    "bannerText": {
+      "pl": "",
+      "en": ""
+    },
+    "bannerTone": "info"
   }
 }

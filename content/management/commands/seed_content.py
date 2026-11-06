@@ -6,13 +6,13 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from content import serializers as s
-from content.models import Faq, FleetCar, Service, SiteSettings
+from content.models import Article, DayTrip, Faq, FleetCar, Service, SiteSettings
 
 SEED_FILE = Path(settings.BASE_DIR) / "seed" / "content.json"
 
 
 class Command(BaseCommand):
-    help = "Adds the website's starting services, rental cars, FAQ and settings (from seed/content.json)."
+    help = "Adds the website's starting services, rental cars, news articles, day trips, FAQ and settings (from seed/content.json)."
 
     def add_arguments(self, parser):
         parser.add_argument("--update", action="store_true", help="Overwrite items and settings that already exist.")
@@ -24,11 +24,13 @@ class Command(BaseCommand):
         groups = [
             ("services", Service, s.validate_service, lambda raw: {"slug": raw["slug"]}),
             ("fleet", FleetCar, s.validate_car, lambda raw: {"name": raw["name"]}),
+            ("articles", Article, s.validate_article, lambda raw: {"slug": raw["slug"]}),
+            ("dayTrips", DayTrip, s.validate_day_trip, lambda raw: {"slug": raw["slug"]}),
             ("faqs", Faq, s.validate_faq, lambda raw: {"question__en": raw["question"]["en"]}),
         ]
         for key, model, validate, lookup in groups:
             created = updated = 0
-            for raw in data[key]:
+            for raw in data.get(key, []):
                 existing = model.objects.filter(**lookup(raw)).first()
                 if existing and not update:
                     continue

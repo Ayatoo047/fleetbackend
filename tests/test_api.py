@@ -12,7 +12,7 @@ from rest_framework.test import APIClient
 
 from accounts.models import AuthToken, User
 from bookings.models import Booking, CargoQuote, ContactMessage, JobApplication
-from content.models import Faq, FleetCar, Service, SiteSettings
+from content.models import Article, DayTrip, Faq, FleetCar, Service, SiteSettings
 from core.utils import now_in_poland
 
 TEMP_MEDIA = tempfile.mkdtemp()
@@ -149,6 +149,15 @@ class BookingTests(ApiTestCase):
         self.assertEqual(customer.to, ["anna@example.com"])
         self.assertIn(response.json()["reference"], customer.subject)
         self.assertIn("Dzień dobry", customer.body)
+        self.assertIn("+48 453 505 286", customer.body, "the default phone when Settings has none")
+
+        settings_row = SiteSettings.load()
+        settings_row.contact_phone = "+48 111 222 333"
+        settings_row.save()
+        mail.outbox.clear()
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post("/v1/bookings", booking_payload(), format="json")
+        self.assertIn("+48 111 222 333", mail.outbox[1].body, "the phone from Admin → Settings")
 
     def test_validation_errors_use_frontend_codes(self):
         payload = booking_payload(
@@ -340,6 +349,17 @@ class LeadTests(ApiTestCase):
         self.assertEqual((customer.to, customer.subject), (["ade@example.com"], f"FleetFlow Cargo – we have your request ({reference})"))
         self.assertIn("+48 516 684 320", customer.body)
 
+        settings_row = SiteSettings.load()
+        settings_row.cargo_whatsapp, settings_row.cargo_email = "+48 999 888 777", "cargo@example.com"
+        settings_row.save()
+        mail.outbox.clear()
+        with self.captureOnCommitCallbacks(execute=True):
+            self.client.post("/v1/cargo-quotes", self.cargo, format="json")
+        customer = mail.outbox[1]
+        self.assertIn("+48 999 888 777", customer.body)
+        self.assertEqual(customer.reply_to, ["cargo@example.com"])
+        CargoQuote.objects.exclude(reference=reference).delete()
+
         bad = {**self.cargo, "whatsapp": "call me", "direction": "", "goodsType": "cars", "weightKg": "heavy", "description": "x" * 1001}
         self.assertEqual(
             self.client.post("/v1/cargo-quotes", bad, format="json").json(),
@@ -430,6 +450,88 @@ class ContentTests(ApiTestCase):
         self.assertEqual(errors, {"year": "invalid", "color": "invalid", "features.pl": "tooLong", "features.en": "invalid"})
         self.assertEqual(FleetCar.objects.count(), 1)
 
+        car_id = response.json()["id"]
+        self.assertEqual(response.json()["gallery"], [])
+        photos = ["https://cdn.example.com/a.webp", "/images/fleet/b.webp"]
+        updated = client.put(f"/v1/fleet/{car_id}", {**car, "gallery": photos}, format="json").json()
+        self.assertEqual(updated["gallery"], photos)
+        # Older admin forms don't send the gallery; the photos stay.
+        self.assertEqual(client.put(f"/v1/fleet/{car_id}", car, format="json").json()["gallery"], photos)
+        errors = client.put(f"/v1/fleet/{car_id}", {**car, "gallery": ["ftp://x"]}, format="json").json()["errors"]
+        self.assertEqual(errors, {"gallery.0": "invalid"})
+        errors = client.put(f"/v1/fleet/{car_id}", {**car, "gallery": photos * 5}, format="json").json()["errors"]
+        self.assertEqual(errors, {"gallery": "tooLong"})
+
+    def test_articles(self):
+        client = self.as_user("staff@example.com", "staff-password")
+        article = {
+            "slug": "psychotechnical-tests", "title": {"pl": "Tytuł", "en": "Title"},
+            "summary": {"pl": "Opis", "en": "Summary"}, "body": {"pl": "<p>Treść</p>", "en": "<p>Body<script>x</script></p>"},
+            "coverImage": "", "published": True, "publishedAt": "2025-02-18",
+        }
+        response = client.post("/v1/articles", article, format="json")
+        self.assertEqual(response.status_code, 201, response.content)
+        first = response.json()
+        self.assertEqual((first["body"]["en"], first["publishedAt"]), ("<p>Body</p>", "2025-02-18"))
+        self.assertEqual(client.post("/v1/articles", article, format="json").json(), {"errors": {"slug": "taken"}})
+
+        client.post("/v1/articles", {**article, "slug": "newer", "publishedAt": "2026-01-01"}, format="json")
+        hidden = client.post("/v1/articles", {**article, "slug": "draft", "published": False}, format="json").json()
+        self.assertEqual([a["slug"] for a in self.client.get("/v1/articles").json()], ["newer", "psychotechnical-tests"])
+        self.assertEqual(len(client.get("/v1/articles?includeUnpublished=true").json()), 3)
+        self.assertEqual(self.client.get("/v1/articles?includeUnpublished=true").status_code, 401)
+
+        self.assertEqual(self.client.get("/v1/articles/by-slug/psychotechnical-tests").json()["id"], first["id"])
+        self.assertEqual(self.client.get("/v1/articles/by-slug/draft").status_code, 404)
+        self.assertEqual(self.client.get("/v1/articles/by-slug/missing").status_code, 404)
+        self.assertEqual(self.client.get(f"/v1/articles/{hidden['id']}").status_code, 401)
+        self.assertEqual(client.get(f"/v1/articles/{hidden['id']}").json()["slug"], "draft")
+
+        updated = client.put(f"/v1/articles/{hidden['id']}", {**article, "slug": "draft", "published": True}, format="json").json()
+        self.assertTrue(updated["published"])
+        errors = client.post("/v1/articles", {**article, "slug": "x", "publishedAt": "2026-02-30", "body": {"pl": "", "en": "<p>x</p>"}}, format="json").json()
+        self.assertEqual(errors, {"errors": {"publishedAt": "date", "body.pl": "required"}})
+        self.assertEqual(client.delete(f"/v1/articles/{hidden['id']}").status_code, 204)
+        self.assertEqual(Article.objects.count(), 2)
+
+    def test_day_trips(self):
+        client = self.as_user("staff@example.com", "staff-password")
+        trip = {
+            "slug": "wieliczka", "name": {"pl": "Wieliczka", "en": "Wieliczka Salt Mine"},
+            "text": {"pl": "Opis", "en": "About"}, "distance": {"pl": "ok. 15 km", "en": "about 15 km"},
+            "duration": {"pl": "3–4 godziny", "en": "3–4 hours"}, "photo": "/images/day-trips/wieliczka.webp",
+            "photoAlt": {"pl": "Kaplica", "en": "Chapel"},
+            "photoCredit": {"author": "A. Author", "license": "CC BY 2.0", "source": "https://commons.wikimedia.org/x"},
+            "destination": {"street": "Daniłowicza 10", "city": "Wieliczka", "postalCode": "32-020"},
+            "published": True, "sortOrder": 2,
+        }
+        response = client.post("/v1/day-trips", trip, format="json")
+        self.assertEqual(response.status_code, 201, response.content)
+        first = response.json()
+        self.assertEqual((first["destination"]["city"], first["photoCredit"]["license"]), ("Wieliczka", "CC BY 2.0"))
+        self.assertEqual(client.post("/v1/day-trips", trip, format="json").json(), {"errors": {"slug": "taken"}})
+
+        # Photo, alt text and credit are optional.
+        minimal = {k: v for k, v in trip.items() if k not in ("photo", "photoAlt", "photoCredit")}
+        second = client.post("/v1/day-trips", {**minimal, "slug": "ojcow", "sortOrder": 1}, format="json").json()
+        self.assertEqual((second["photo"], second["photoCredit"]), ("", {"author": "", "license": "", "source": ""}))
+        client.post("/v1/day-trips", {**minimal, "slug": "hidden", "published": False}, format="json")
+        self.assertEqual([t["slug"] for t in self.client.get("/v1/day-trips").json()], ["ojcow", "wieliczka"])
+        self.assertEqual(len(client.get("/v1/day-trips?includeUnpublished=true").json()), 3)
+        self.assertEqual(self.client.get("/v1/day-trips?includeUnpublished=true").status_code, 401)
+        self.assertEqual(self.client.get(f"/v1/day-trips/{first['id']}").status_code, 401)
+
+        updated = client.put(f"/v1/day-trips/{first['id']}", {**trip, "duration": {"pl": "Cały dzień", "en": "Full day"}}, format="json").json()
+        self.assertEqual(updated["duration"]["en"], "Full day")
+        errors = client.post(
+            "/v1/day-trips",
+            {**trip, "slug": "x", "name": {"pl": ""}, "destination": {"street": "A"}, "photoCredit": {"source": "ftp://x"}},
+            format="json",
+        ).json()["errors"]
+        self.assertEqual(errors, {"name.pl": "required", "name.en": "required", "photoCredit.source": "invalid", "destination.city": "required"})
+        self.assertEqual(client.delete(f"/v1/day-trips/{first['id']}").status_code, 204)
+        self.assertEqual(DayTrip.objects.count(), 2)
+
     def test_faqs(self):
         client = self.as_user("staff@example.com", "staff-password")
         faq = {
@@ -454,15 +556,44 @@ class ContentTests(ApiTestCase):
     def test_settings(self):
         self.assertEqual(
             self.client.get("/v1/settings").json(),
-            {"cargoRatePerKg": 50.0, "cargoMinWeightKg": 1.0, "cargoEstimatorEnabled": True},
+            {
+                "cargoRatePerKg": 50.0, "cargoMinWeightKg": 1.0, "cargoEstimatorEnabled": True,
+                "rentalPromoEnabled": True, "rentalFirstWeekDiscountPercent": 35,
+                "contactPhone": "", "contactEmail": "", "contactWhatsapp": "", "cargoWhatsapp": "", "cargoEmail": "",
+                "bannerEnabled": False, "bannerText": {"pl": "", "en": ""}, "bannerTone": "info",
+            },
         )
-        body = {"cargoRatePerKg": 47.5, "cargoMinWeightKg": 2, "cargoEstimatorEnabled": False}
+        body = {
+            "cargoRatePerKg": 47.5, "cargoMinWeightKg": 2, "cargoEstimatorEnabled": False,
+            "rentalPromoEnabled": False, "rentalFirstWeekDiscountPercent": 20,
+            "contactPhone": "+48 111 222 333", "contactEmail": "hello@example.com", "contactWhatsapp": "",
+            "cargoWhatsapp": "+234 803 123 4567", "cargoEmail": "", "bannerEnabled": True,
+            "bannerText": {"pl": "Zamknięte 24–26 grudnia", "en": "Closed 24–26 December"}, "bannerTone": "warning",
+        }
         self.assertEqual(self.client.put("/v1/settings", body, format="json").status_code, 401)
         client = self.as_user("staff@example.com", "staff-password")
         self.assertEqual(client.put("/v1/settings", body, format="json").json(), {**body, "cargoMinWeightKg": 2.0})
         self.assertEqual(self.client.get("/v1/settings").json()["cargoRatePerKg"], 47.5)
         bad = client.put("/v1/settings", {"cargoRatePerKg": -1, "cargoMinWeightKg": "x"}, format="json").json()
         self.assertEqual(bad, {"errors": {"cargoRatePerKg": "invalid", "cargoMinWeightKg": "invalid", "cargoEstimatorEnabled": "invalid"}})
+        bad = client.put("/v1/settings", {**body, "rentalFirstWeekDiscountPercent": 95}, format="json").json()
+        self.assertEqual(bad, {"errors": {"rentalFirstWeekDiscountPercent": "invalid"}})
+        bad = client.put(
+            "/v1/settings",
+            {**body, "contactPhone": "call us", "contactEmail": "nope", "bannerTone": "loud", "bannerText": {"pl": "", "en": "Hi"}},
+            format="json",
+        ).json()
+        self.assertEqual(bad, {"errors": {"contactPhone": "phone", "contactEmail": "email", "bannerTone": "invalid", "bannerText.pl": "required"}})
+        # Switching the banner on keeps checking the stored text when the form leaves it out.
+        client.put("/v1/settings", {**body, "bannerEnabled": False, "bannerText": {"pl": "", "en": ""}}, format="json")
+        self.assertEqual(
+            client.put("/v1/settings", {"cargoRatePerKg": 50, "cargoMinWeightKg": 1, "cargoEstimatorEnabled": True, "bannerEnabled": True}, format="json").json(),
+            {"errors": {"bannerText.pl": "required", "bannerText.en": "required"}},
+        )
+        client.put("/v1/settings", body, format="json")
+        # Older admin forms don't send the rental fields; their stored values stay.
+        old_form = {"cargoRatePerKg": 50, "cargoMinWeightKg": 1, "cargoEstimatorEnabled": True}
+        self.assertEqual(client.put("/v1/settings", old_form, format="json").json()["rentalFirstWeekDiscountPercent"], 20)
         self.assertEqual(SiteSettings.objects.count(), 1)
 
     @override_settings(MEDIA_ROOT=TEMP_MEDIA, PUBLIC_BASE_URL="https://api.example.com")
@@ -513,6 +644,36 @@ class UserTests(ApiTestCase):
         self.assertEqual(client.get(f"/v1/users/{user['id']}").status_code, 404)
 
 
+class ChangePasswordTests(ApiTestCase):
+    URL = "/v1/auth/change-password"
+
+    def test_change_own_password(self):
+        other_session = self.as_user("staff@example.com", "staff-password")
+        client = self.as_user("staff@example.com", "staff-password")
+        body = {"currentPassword": "staff-password", "newPassword": "a-new-long-password"}
+        self.assertEqual(client.post(self.URL, body, format="json").status_code, 204)
+
+        self.assertEqual(client.get("/v1/bookings").status_code, 200, "the current session stays signed in")
+        self.assertEqual(other_session.get("/v1/bookings").status_code, 401, "other sessions are signed out")
+        self.assertEqual(self.client.post("/v1/auth/login", {"email": "staff@example.com", "password": "staff-password"}, format="json").status_code, 401)
+        self.login("staff@example.com", "a-new-long-password")
+
+    def test_errors(self):
+        client = self.as_user()
+        post = lambda body: client.post(self.URL, body, format="json").json()
+        self.assertEqual(post({}), {"errors": {"currentPassword": "required", "newPassword": "required"}})
+        self.assertEqual(post({"currentPassword": "wrong", "newPassword": "a-new-long-password"}), {"errors": {"currentPassword": "wrongPassword"}})
+        self.assertEqual(post({"currentPassword": "admin-password", "newPassword": "short"}), {"errors": {"newPassword": "tooShort"}})
+        self.assertEqual(post({"currentPassword": "admin-password", "newPassword": "admin-password"}), {"errors": {"newPassword": "samePassword"}})
+        self.assertEqual(post({"currentPassword": "admin-password", "newPassword": "x" * 201}), {"errors": {"newPassword": "tooLong"}})
+        self.admin.refresh_from_db()
+        self.assertTrue(self.admin.check_password("admin-password"))
+
+    def test_needs_a_token(self):
+        body = {"currentPassword": "admin-password", "newPassword": "a-new-long-password"}
+        self.assertEqual(self.client.post(self.URL, body, format="json").status_code, 401)
+
+
 class SeedTests(TestCase):
     def test_seed_content_is_idempotent(self):
         from django.core.management import call_command
@@ -520,6 +681,11 @@ class SeedTests(TestCase):
         call_command("seed_content", stdout=mock.MagicMock())
         call_command("seed_content", stdout=mock.MagicMock())
         self.assertEqual((Service.objects.count(), FleetCar.objects.count(), Faq.objects.count()), (7, 3, 66))
+        self.assertEqual(Article.objects.filter(published=True).count(), 1)
+        self.assertEqual(list(DayTrip.objects.values_list("slug", flat=True)), ["wieliczka", "auschwitz", "ojcow", "zakopane", "energylandia"])
+        self.assertEqual(SiteSettings.load().cargo_whatsapp, "+48 516 684 320")
+        self.assertEqual(len(FleetCar.objects.get(name="Toyota Prius III").gallery), 2)
+        self.assertEqual(SiteSettings.load().rental_first_week_discount_percent, 35)
         self.assertEqual(Service.objects.filter(brand="cargo", coming_soon=True).count(), 2)
         self.assertEqual(float(SiteSettings.load().cargo_rate_per_kg), 50.0)
 

@@ -157,6 +157,7 @@ def send_booking_emails(booking):
 
     if settings.SEND_BOOKING_CONFIRMATION:
         text = BOOKING_CONFIRMATION[booking.locale if booking.locale in BOOKING_CONFIRMATION else "pl"]
+        contact = contact_details()
         values = {
             "reference": booking.reference,
             "first_name": booking.first_name,
@@ -166,10 +167,22 @@ def send_booking_emails(booking):
             "pickup": _address(pickup) or "–",
             "dropoff": _address(dropoff) or "–",
             "passengers": booking.passengers,
-            "phone": settings.COMPANY_PHONE,
+            "phone": contact["phone"],
         }
         reply_to = [settings.COMPANY_REPLY_TO] if settings.COMPANY_REPLY_TO else None
         _send(text["subject"].format(**values), text["body"].format(**values), [booking.email], reply_to=reply_to)
+
+
+def contact_details():
+    """Contact details for customer emails: Admin → Settings, or the environment settings where those are empty."""
+    from content.models import SiteSettings
+
+    stored = SiteSettings.load()
+    return {
+        "phone": stored.contact_phone or settings.COMPANY_PHONE,
+        "cargo_whatsapp": stored.cargo_whatsapp or settings.CARGO_WHATSAPP,
+        "cargo_email": stored.cargo_email or settings.CARGO_EMAIL,
+    }
 
 
 def send_contact_notification(message):
@@ -206,8 +219,9 @@ def send_cargo_quote_emails(quote):
     )
 
     text = CARGO_CONFIRMATION[quote.locale if quote.locale in CARGO_CONFIRMATION else "pl"]
-    values = {"name": quote.name, "reference": quote.reference, "whatsapp": settings.CARGO_WHATSAPP, "email": settings.CARGO_EMAIL}
-    _send(text["subject"].format(**values), text["body"].format(**values), [quote.email], reply_to=[settings.CARGO_EMAIL])
+    contact = contact_details()
+    values = {"name": quote.name, "reference": quote.reference, "whatsapp": contact["cargo_whatsapp"], "email": contact["cargo_email"]}
+    _send(text["subject"].format(**values), text["body"].format(**values), [quote.email], reply_to=[contact["cargo_email"]])
 
 
 def send_job_application_notification(application):
