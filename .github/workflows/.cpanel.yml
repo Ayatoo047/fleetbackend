@@ -1,0 +1,28 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  X_API_KEY: ${{secrets.CPANEL_TOKEN}}
+  ENVIRONMENT: "github"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to cPanel
+        id: deploy
+        uses: Ayatoo047/cpanel-deploy-action@v1.2.61
+        with:
+          cPanelApiPort: 2083
+          cpanel_username: 'fleezixc'
+          hostname: 'https://server415.web-hosting.com/'
+          repository_root: '/home/fleezixc/fleetbackend/fleetbackend'
+          branch: main
+          cpanel_token: '${{ secrets.CPANEL_TOKEN }}'
+      - name: echo deploy-duration
+        run: echo "Deployment took ${{ steps.deploy.outputs.duration }} milliseconds"
